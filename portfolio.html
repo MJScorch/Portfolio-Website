@@ -27,7 +27,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { background:var(--bg); color:var(--text); font-family:var(--serif); font-size:18px; line-height:1.7; overflow-x:hidden; }
- 
+
     body::before {
       content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
       background-image:
@@ -37,7 +37,7 @@
         linear-gradient(90deg, rgba(232,160,48,0.036) 1px, transparent 1px);
       background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
     }
- 
+
     .eq-layer { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
     .eq { position:absolute; font-family:var(--mono); font-size:11px; color:rgba(232,160,48,0.07); white-space:nowrap; letter-spacing:.02em; font-weight:300; animation:float-eq 30s ease-in-out infinite; }
     .eq:nth-child(2){animation-duration:38s;animation-delay:-7s}
@@ -52,18 +52,18 @@
       33%{transform:translateY(-18px) rotate(.5deg);opacity:.9}
       66%{transform:translateY(10px) rotate(-.8deg);opacity:.6}
     }
- 
+
     .container { position:relative; z-index:1; max-width:860px; margin:0 auto; padding:0 32px; }
     section { padding:96px 0; }
     section + section { border-top:1px solid var(--border); }
- 
+
     nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:20px 0; background:linear-gradient(to bottom,rgba(14,14,14,.96) 0%,transparent 100%); backdrop-filter:blur(2px); }
     .nav-inner { max-width:860px; margin:0 auto; padding:0 32px; display:flex; justify-content:space-between; align-items:center; }
     .nav-logo { font-family:var(--mono); font-size:13px; font-weight:500; color:var(--amber); letter-spacing:.08em; text-decoration:none; }
     .nav-links { display:flex; gap:28px; list-style:none; }
     .nav-links a { font-family:var(--mono); font-size:11px; color:var(--text-dim); text-decoration:none; letter-spacing:.1em; text-transform:uppercase; transition:color .2s; }
     .nav-links a:hover { color:var(--amber); }
- 
+
     #hero { min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding-top:80px; padding-bottom:64px; }
     .hero-label { font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--amber); margin-bottom:28px; opacity:0; animation:fade-up .8s .2s ease forwards; }
     .hero-name { font-size:clamp(52px,8vw,88px); font-weight:500; line-height:1.0; letter-spacing:-.02em; color:var(--text); margin-bottom:24px; opacity:0; animation:fade-up .9s .4s ease forwards; }
@@ -78,14 +78,14 @@
     .hero-stat { display:flex; flex-direction:column; gap:4px; }
     .hero-stat-value { font-family:var(--mono); font-size:22px; font-weight:500; color:var(--amber); }
     .hero-stat-label { font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--text-muted); }
- 
+
     @keyframes fade-up { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
- 
+
     .section-header { margin-bottom:56px; }
     .section-num { font-family:var(--mono); font-size:11px; letter-spacing:.2em; color:var(--amber); text-transform:uppercase; margin-bottom:12px; display:block; }
     .section-title { font-size:clamp(32px,5vw,52px); font-weight:500; letter-spacing:-.02em; line-height:1.1; color:var(--text); }
     .section-title em { font-style:italic; font-weight:700; color:var(--amber); }
- 
+
     .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
     .about-body p { color:var(--text-dim); margin-bottom:20px; font-size:18px; line-height:1.8; }
     .about-body p strong { color:var(--text); font-weight:600; }
@@ -95,33 +95,29 @@
     .aside-card-content { font-size:15px; color:var(--text-dim); line-height:1.6; }
     .aside-card-content a { color:var(--amber); text-decoration:none; }
     .aside-card-content a:hover { text-decoration:underline; }
- 
+
     .exp-item { display:grid; grid-template-columns:200px 1fr; gap:32px; padding:40px 0; border-bottom:1px solid var(--border); }
     .exp-item:first-child { border-top:1px solid var(--border); }
     .exp-meta { display:flex; flex-direction:column; gap:8px; padding-top:4px; }
     .exp-period { font-family:var(--mono); font-size:11px; letter-spacing:.1em; color:var(--amber); }
     .exp-company { font-family:var(--mono); font-size:13px; font-weight:500; color:var(--text); }
-    /* co-op: bigger and more visible */
     .exp-loc { font-family:var(--mono); font-size:12px; font-weight:500; color:rgba(210,195,168,0.65); letter-spacing:.1em; text-transform:uppercase; }
     .exp-title { font-size:22px; font-weight:600; color:var(--text); margin-bottom:12px; letter-spacing:-.01em; }
     .exp-desc { font-size:16px; color:var(--text-dim); line-height:1.8; margin-bottom:16px; }
     .exp-tags { display:flex; flex-wrap:wrap; gap:8px; }
-    /* tags: much more readable */
     .tag { font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:rgba(232,160,48,0.88); border:1px solid rgba(232,160,48,0.28); padding:4px 10px; background:rgba(232,160,48,0.06); }
- 
-    /* project cards — overflow visible so hover preview isn't clipped */
+
     .projects-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
     .project-card { border:1px solid var(--border); padding:32px; background:var(--bg-card); position:relative; overflow:visible; transition:border-color .25s; display:flex; flex-direction:column; }
     .project-card:hover { border-color:var(--amber); }
     .project-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--amber),transparent); opacity:0; transition:opacity .3s; }
     .project-card:hover::before { opacity:1; }
     .project-number { font-family:var(--mono); font-size:10px; letter-spacing:.18em; color:var(--amber); margin-bottom:16px; text-transform:uppercase; }
- 
+
     .project-name-wrap { position:relative; display:inline-block; cursor:default; margin-bottom:14px; }
     .project-name { font-size:22px; font-weight:600; color:var(--text); letter-spacing:-.01em; line-height:1.2; transition:color .2s; }
     .project-name-wrap:hover .project-name { color:var(--amber); }
- 
-    /* enlarged, richer hover preview */
+
     .project-preview {
       position:absolute;
       bottom: calc(100% + 12px);
@@ -138,7 +134,7 @@
     }
     .project-name-wrap:hover .project-preview { opacity:1; transform:translateY(0) scale(1); }
     .project-preview svg { width:100%; height:100%; display:block; }
- 
+
     .project-desc { font-size:15px; color:var(--text-dim); line-height:1.75; flex:1; margin-bottom:20px; }
     .project-insight { border-left:2px solid var(--amber-line); padding:10px 16px; margin:16px 0 20px; background:var(--amber-glow); }
     .project-insight p { font-style:italic; font-size:14px; color:var(--amber-dim); line-height:1.6; }
@@ -148,25 +144,23 @@
     .project-status { font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; }
     .status-wip  { color:#8aaa60; }
     .status-live { color:var(--amber); }
- 
-    /* media/screenshot placeholder styles (for future use) */
-    .project-media { display:none; /* show when you have real screenshots */ width:100%; aspect-ratio:16/9; background:rgba(232,160,48,0.04); border:1px dashed var(--border); margin-bottom:16px; align-items:center; justify-content:center; }
+
+    .project-media { display:none; width:100%; aspect-ratio:16/9; background:rgba(232,160,48,0.04); border:1px dashed var(--border); margin-bottom:16px; align-items:center; justify-content:center; }
     .project-media-label { font-family:var(--mono); font-size:10px; color:var(--text-muted); letter-spacing:.1em; }
- 
+
     /* math / coursework */
-    .math-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+    .math-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; }
     .math-block { border:1px solid var(--border); padding:28px 32px; background:var(--bg-card); }
     .math-block-title { font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--amber); margin-bottom:16px; display:block; }
     .math-block-body { font-size:15px; color:var(--text-dim); line-height:1.8; }
     .math-block-body strong { color:var(--text); font-weight:600; }
     .math-eq { font-family:var(--mono); font-size:13px; color:var(--text); background:rgba(232,160,48,.06); border:1px solid rgba(232,160,48,.12); padding:10px 16px; margin:12px 0; display:block; letter-spacing:.05em; }
- 
-    /* calculus block: clickable */
+
     .math-block.clickable { cursor:pointer; transition:border-color .2s, background .2s; }
     .math-block.clickable:hover { border-color:var(--amber); background:rgba(24,22,18,.9); }
     .math-block.clickable:hover .math-block-title::after { content:' ↗'; opacity:.7; }
     .math-open-hint { font-family:var(--mono); font-size:10px; color:var(--text-muted); letter-spacing:.08em; margin-top:14px; display:block; }
- 
+
     /* linear transformation viz */
     .math-viz-block { border:1px solid var(--border); padding:28px 32px; background:var(--bg-card); grid-column:1/-1; }
     .math-viz-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:12px; }
@@ -188,10 +182,16 @@
     .viz-legend { display:flex; flex-direction:column; gap:5px; margin-top:4px; }
     .viz-legend-item { display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:10px; color:var(--text-muted); }
     .viz-legend-dot { width:16px; height:3px; border-radius:1px; flex-shrink:0; }
- 
+
     /* live data */
     .live-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
     .live-card { border:1px solid var(--border); padding:24px; background:var(--bg-card); display:flex; flex-direction:column; gap:12px; }
+    /* ── clickable live cards ── */
+    a.live-card { text-decoration:none; color:inherit; cursor:pointer; transition:border-color .2s, background .2s; }
+    a.live-card:hover { border-color:var(--amber); background:rgba(24,22,14,.95); }
+    a.live-card::after { content:'↗'; font-family:var(--mono); font-size:10px; color:var(--amber-dim); opacity:0; position:absolute; top:16px; right:16px; transition:opacity .2s; pointer-events:none; }
+    a.live-card { position:relative; }
+    a.live-card:hover::after { opacity:1; }
     .live-card-header { display:flex; align-items:center; justify-content:space-between; }
     .live-card-source { font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--amber-dim); }
     .live-dot { width:7px; height:7px; border-radius:50%; background:var(--text-muted); flex-shrink:0; }
@@ -203,7 +203,7 @@
     .live-card-label { font-size:15px; color:var(--text-dim); line-height:1.5; }
     .live-card-sub { font-family:var(--mono); font-size:11px; color:var(--text-muted); letter-spacing:.06em; }
     .live-placeholder { color:var(--text-muted) !important; font-size:18px !important; }
- 
+
     /* contact */
     .contact-grid { display:grid; grid-template-columns:1fr auto; gap:64px; align-items:start; }
     .contact-body p { font-size:18px; color:var(--text-dim); max-width:480px; line-height:1.8; margin-bottom:32px; }
@@ -216,16 +216,16 @@
     .interest-list { display:flex; flex-direction:column; gap:8px; }
     .interest-item { font-family:var(--mono); font-size:12px; color:var(--text-muted); letter-spacing:.06em; }
     .interest-item::before { content:'/ '; color:var(--amber-dim); }
- 
+
     footer { position:relative; z-index:1; border-top:1px solid var(--border); padding:32px 0; }
     .footer-inner { max-width:860px; margin:0 auto; padding:0 32px; display:flex; justify-content:space-between; align-items:center; }
     .footer-copy { font-family:var(--mono); font-size:11px; color:var(--text-muted); letter-spacing:.06em; }
     .footer-sig { font-style:italic; font-size:14px; color:var(--text-muted); }
- 
+
     .reveal { opacity:0; transform:translateY(24px); transition:opacity .7s ease,transform .7s ease; }
     .reveal.visible { opacity:1; transform:none; }
- 
-    /* ── CALCULUS MODAL ── */
+
+    /* ── SHARED MODAL BASE ── */
     .calc-modal-overlay {
       display:none; position:fixed; inset:0; z-index:200;
       background:rgba(0,0,0,.85); backdrop-filter:blur(4px);
@@ -254,7 +254,17 @@
     .calc-modal-footer { padding:20px 32px; border-top:1px solid var(--border); background:rgba(232,160,48,.03); }
     .calc-modal-footer p { font-family:var(--mono); font-size:11px; color:var(--text-muted); line-height:1.7; letter-spacing:.03em; }
     .calc-modal-footer a { color:var(--amber); text-decoration:none; }
- 
+
+    /* ── WIP modal body ── */
+    .wip-body { padding:48px 32px; display:flex; flex-direction:column; align-items:center; gap:28px; text-align:center; }
+    .wip-icon { font-family:var(--mono); font-size:32px; color:var(--amber); opacity:.5; }
+    .wip-label { font-family:var(--mono); font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--amber); }
+    .wip-heading { font-size:28px; font-weight:600; color:var(--text); letter-spacing:-.01em; }
+    .wip-desc { font-size:15px; color:var(--text-dim); line-height:1.8; max-width:480px; }
+    .wip-plan { display:flex; flex-direction:column; gap:10px; margin-top:8px; width:100%; max-width:400px; }
+    .wip-plan-item { display:flex; align-items:flex-start; gap:12px; text-align:left; font-family:var(--mono); font-size:11px; color:var(--text-muted); letter-spacing:.04em; line-height:1.6; }
+    .wip-plan-item::before { content:'—'; color:var(--amber-dim); flex-shrink:0; margin-top:1px; }
+
     @media (max-width:700px) {
       .container{padding:0 20px}
       .about-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
@@ -268,7 +278,7 @@
   </style>
 </head>
 <body>
- 
+
 <div class="eq-layer" aria-hidden="true">
   <div class="eq" style="top:8%;left:4%">A = U Σ Vᵀ</div>
   <div class="eq" style="top:18%;right:6%">∇L(w) = Xᵀ(Xw − y)</div>
@@ -279,7 +289,7 @@
   <div class="eq" style="top:82%;left:12%">f(x) = Σ αᵢ K(xᵢ, x)</div>
   <div class="eq" style="top:91%;right:12%">λ₁ ≥ λ₂ ≥ … ≥ λₙ ≥ 0</div>
 </div>
- 
+
 <nav>
   <div class="nav-inner">
     <a class="nav-logo" href="#hero">M.Scorziello</a>
@@ -293,7 +303,7 @@
     </ul>
   </div>
 </nav>
- 
+
 <!-- HERO -->
 <section id="hero">
   <div class="container">
@@ -311,7 +321,7 @@
     </div>
   </div>
 </section>
- 
+
 <!-- ABOUT -->
 <section id="about">
   <div class="container">
@@ -346,7 +356,7 @@
     </div>
   </div>
 </section>
- 
+
 <!-- EXPERIENCE -->
 <section id="experience">
   <div class="container">
@@ -355,7 +365,7 @@
       <h2 class="section-title">Work</h2>
     </div>
     <div class="exp-list">
- 
+
       <div class="exp-item reveal">
         <div class="exp-meta">
           <span class="exp-period">Jan – Apr 2026</span>
@@ -372,7 +382,7 @@
           </div>
         </div>
       </div>
- 
+
       <div class="exp-item reveal">
         <div class="exp-meta">
           <span class="exp-period">May – Aug 2025</span>
@@ -388,7 +398,7 @@
           </div>
         </div>
       </div>
- 
+
       <div class="exp-item reveal">
         <div class="exp-meta">
           <span class="exp-period">Ongoing</span>
@@ -403,11 +413,11 @@
           </div>
         </div>
       </div>
- 
+
     </div>
   </div>
 </section>
- 
+
 <!-- PROJECTS -->
 <section id="projects">
   <div class="container">
@@ -416,7 +426,7 @@
       <h2 class="section-title">Projects</h2>
     </div>
     <div class="projects-grid">
- 
+
       <!-- Letterboxd -->
       <div class="project-card reveal">
         <div class="project-number">Project 01 · In Progress</div>
@@ -429,18 +439,11 @@
                   <stop offset="0%" stop-color="rgba(232,160,48,0.18)"/>
                   <stop offset="100%" stop-color="rgba(232,160,48,0)"/>
                 </radialGradient>
-                <linearGradient id="filmstrip-grad" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stop-color="#e8a030" stop-opacity="0.6"/>
-                  <stop offset="100%" stop-color="#e8a030" stop-opacity="0.2"/>
-                </linearGradient>
               </defs>
               <rect width="320" height="200" fill="#080808"/>
-              <!-- projection beam -->
               <polygon points="160,0 60,200 260,200" fill="url(#beam)"/>
-              <!-- film strip top -->
               <rect x="0" y="0" width="320" height="18" fill="rgba(232,160,48,0.12)"/>
               <rect x="0" y="0" width="320" height="18" fill="none" stroke="rgba(232,160,48,0.2)" stroke-width="0.5"/>
-              <!-- sprocket holes -->
               <rect x="6"  y="3" width="12" height="12" rx="2" fill="rgba(0,0,0,0.8)"/>
               <rect x="26" y="3" width="12" height="12" rx="2" fill="rgba(0,0,0,0.8)"/>
               <rect x="46" y="3" width="12" height="12" rx="2" fill="rgba(0,0,0,0.8)"/>
@@ -456,16 +459,12 @@
               <rect x="246" y="3" width="12" height="12" rx="2" fill="rgba(0,0,0,0.8)"/>
               <rect x="266" y="3" width="12" height="12" rx="2" fill="rgba(0,0,0,0.8)"/>
               <rect x="286" y="3" width="12" height="12" rx="2" fill="rgba(0,0,0,0.8)"/>
-              <!-- centre card: recommendation result -->
               <rect x="80" y="50" width="160" height="120" rx="4" fill="rgba(20,18,14,0.92)" stroke="rgba(232,160,48,0.4)" stroke-width="1"/>
               <text x="160" y="76" font-family="Georgia,serif" font-size="11" font-style="italic" fill="rgba(232,160,48,0.5)" text-anchor="middle">recommended for you</text>
               <text x="160" y="100" font-family="Georgia,serif" font-size="16" font-weight="600" fill="#e8e2d6" text-anchor="middle">Mulholland Drive</text>
               <text x="160" y="116" font-family="Georgia,serif" font-size="11" fill="rgba(200,185,155,0.6)" text-anchor="middle">David Lynch · 2001</text>
-              <!-- stars -->
               <text x="160" y="140" font-family="Georgia,serif" font-size="18" fill="#e8a030" text-anchor="middle">★★★★★</text>
-              <!-- cosine sim label -->
               <text x="160" y="162" font-family="monospace" font-size="8" fill="rgba(232,160,48,0.35)" text-anchor="middle">sim = 0.94  ·  SVD rank-48</text>
-              <!-- film reel bottom right -->
               <circle cx="286" cy="170" r="22" fill="none" stroke="rgba(232,160,48,0.2)" stroke-width="1.5"/>
               <circle cx="286" cy="170" r="8"  fill="none" stroke="rgba(232,160,48,0.3)" stroke-width="1.5"/>
               <circle cx="286" cy="170" r="2"  fill="rgba(232,160,48,0.5)"/>
@@ -474,7 +473,6 @@
             </svg>
           </div>
         </div>
-        <!-- placeholder for future screenshot/video -->
         <div class="project-media"><span class="project-media-label">screenshot · coming soon</span></div>
         <p class="project-desc">Personal movie recommender trained on Letterboxd export data. Combines NLP text embeddings of film descriptions with SVD over the user–film rating matrix. The goal is recommendations that feel personal, not just popular.</p>
         <div class="exp-tags" style="margin-bottom:20px;">
@@ -486,7 +484,7 @@
           <span class="project-status status-wip">In Progress</span>
         </div>
       </div>
- 
+
       <!-- Habit Tracker -->
       <div class="project-card reveal">
         <div class="project-number">Project 02 · Live</div>
@@ -495,13 +493,9 @@
           <div class="project-preview" aria-hidden="true">
             <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
               <rect width="320" height="200" fill="#080808"/>
-              <!-- ambient glow -->
               <ellipse cx="240" cy="100" rx="100" ry="80" fill="rgba(232,160,48,0.04)"/>
-              <!-- contribution grid left -->
               <text x="14" y="38" font-family="monospace" font-size="7" fill="rgba(232,160,48,0.4)">last 8 weeks</text>
               <g id="heatmap">
-                <!-- 8 cols × 7 rows, starting x=14, y=46, cell=14px, gap=2 -->
-                <!-- col 1 -->
                 <rect x="14" y="46" width="12" height="12" rx="2" fill="rgba(232,160,48,0.7)"/>
                 <rect x="14" y="60" width="12" height="12" rx="2" fill="rgba(232,160,48,0.1)"/>
                 <rect x="14" y="74" width="12" height="12" rx="2" fill="rgba(232,160,48,0.5)"/>
@@ -509,7 +503,6 @@
                 <rect x="14" y="102" width="12" height="12" rx="2" fill="rgba(232,160,48,0.3)"/>
                 <rect x="14" y="116" width="12" height="12" rx="2" fill="rgba(232,160,48,0.1)"/>
                 <rect x="14" y="130" width="12" height="12" rx="2" fill="rgba(232,160,48,0.6)"/>
-                <!-- col 2 -->
                 <rect x="28" y="46" width="12" height="12" rx="2" fill="rgba(232,160,48,0.5)"/>
                 <rect x="28" y="60" width="12" height="12" rx="2" fill="rgba(232,160,48,0.8)"/>
                 <rect x="28" y="74" width="12" height="12" rx="2" fill="rgba(232,160,48,0.7)"/>
@@ -517,7 +510,6 @@
                 <rect x="28" y="102" width="12" height="12" rx="2" fill="rgba(232,160,48,0.5)"/>
                 <rect x="28" y="116" width="12" height="12" rx="2" fill="rgba(232,160,48,0.7)"/>
                 <rect x="28" y="130" width="12" height="12" rx="2" fill="rgba(232,160,48,0.3)"/>
-                <!-- col 3 -->
                 <rect x="42" y="46" width="12" height="12" rx="2" fill="rgba(232,160,48,0.8)"/>
                 <rect x="42" y="60" width="12" height="12" rx="2" fill="rgba(232,160,48,0.6)"/>
                 <rect x="42" y="74" width="12" height="12" rx="2" fill="rgba(232,160,48,0.1)"/>
@@ -525,7 +517,6 @@
                 <rect x="42" y="102" width="12" height="12" rx="2" fill="rgba(232,160,48,0.8)"/>
                 <rect x="42" y="116" width="12" height="12" rx="2" fill="rgba(232,160,48,0.1)"/>
                 <rect x="42" y="130" width="12" height="12" rx="2" fill="rgba(232,160,48,0.5)"/>
-                <!-- col 4 -->
                 <rect x="56" y="46" width="12" height="12" rx="2" fill="rgba(232,160,48,0.3)"/>
                 <rect x="56" y="60" width="12" height="12" rx="2" fill="rgba(232,160,48,0.8)"/>
                 <rect x="56" y="74" width="12" height="12" rx="2" fill="rgba(232,160,48,0.8)"/>
@@ -533,7 +524,6 @@
                 <rect x="56" y="102" width="12" height="12" rx="2" fill="rgba(232,160,48,0.1)"/>
                 <rect x="56" y="116" width="12" height="12" rx="2" fill="rgba(232,160,48,0.8)"/>
                 <rect x="56" y="130" width="12" height="12" rx="2" fill="rgba(232,160,48,0.7)"/>
-                <!-- col 5 -->
                 <rect x="70" y="46" width="12" height="12" rx="2" fill="rgba(232,160,48,0.8)"/>
                 <rect x="70" y="60" width="12" height="12" rx="2" fill="rgba(232,160,48,0.3)"/>
                 <rect x="70" y="74" width="12" height="12" rx="2" fill="rgba(232,160,48,0.8)"/>
@@ -541,7 +531,6 @@
                 <rect x="70" y="102" width="12" height="12" rx="2" fill="rgba(232,160,48,0.7)"/>
                 <rect x="70" y="116" width="12" height="12" rx="2" fill="rgba(232,160,48,0.5)"/>
                 <rect x="70" y="130" width="12" height="12" rx="2" fill="rgba(232,160,48,0.1)"/>
-                <!-- col 6 -->
                 <rect x="84" y="46" width="12" height="12" rx="2" fill="rgba(232,160,48,0.6)"/>
                 <rect x="84" y="60" width="12" height="12" rx="2" fill="rgba(232,160,48,0.8)"/>
                 <rect x="84" y="74" width="12" height="12" rx="2" fill="rgba(232,160,48,0.8)"/>
@@ -549,7 +538,6 @@
                 <rect x="84" y="102" width="12" height="12" rx="2" fill="rgba(232,160,48,0.1)"/>
                 <rect x="84" y="116" width="12" height="12" rx="2" fill="rgba(232,160,48,0.4)"/>
                 <rect x="84" y="130" width="12" height="12" rx="2" fill="rgba(232,160,48,0.8)"/>
-                <!-- col 7 -->
                 <rect x="98" y="46" width="12" height="12" rx="2" fill="rgba(232,160,48,0.1)"/>
                 <rect x="98" y="60" width="12" height="12" rx="2" fill="rgba(232,160,48,0.8)"/>
                 <rect x="98" y="74" width="12" height="12" rx="2" fill="rgba(232,160,48,0.5)"/>
@@ -557,7 +545,6 @@
                 <rect x="98" y="102" width="12" height="12" rx="2" fill="rgba(232,160,48,0.8)"/>
                 <rect x="98" y="116" width="12" height="12" rx="2" fill="rgba(232,160,48,0.1)"/>
                 <rect x="98" y="130" width="12" height="12" rx="2" fill="rgba(232,160,48,0.6)"/>
-                <!-- col 8 (current week) - highlighted -->
                 <rect x="112" y="46" width="12" height="12" rx="2" fill="rgba(232,160,48,0.9)"/>
                 <rect x="112" y="60" width="12" height="12" rx="2" fill="rgba(232,160,48,0.9)"/>
                 <rect x="112" y="74" width="12" height="12" rx="2" fill="rgba(232,160,48,0.9)"/>
@@ -567,14 +554,11 @@
                 <rect x="112" y="130" width="12" height="12" rx="2" fill="rgba(232,160,48,0.1)"/>
               </g>
               <text x="14" y="158" font-family="monospace" font-size="7" fill="rgba(232,160,48,0.3)">4/7 today · 23 day streak</text>
-              <!-- iPhone mockup right side -->
               <rect x="178" y="20" width="124" height="168" rx="14" fill="none" stroke="rgba(232,160,48,0.3)" stroke-width="1.5"/>
               <rect x="195" y="16" width="40" height="7" rx="3.5" fill="rgba(232,160,48,0.25)"/>
               <rect x="182" y="34" width="116" height="148" rx="6" fill="rgba(232,160,48,0.03)"/>
-              <!-- widget header -->
               <rect x="186" y="40" width="108" height="20" rx="3" fill="rgba(232,160,48,0.15)"/>
               <text x="240" y="53" font-family="monospace" font-size="7" fill="rgba(232,160,48,0.8)" text-anchor="middle">habits · fri apr 4</text>
-              <!-- habit rows -->
               <rect x="186" y="64" width="108" height="16" rx="2" fill="rgba(232,160,48,0.06)"/>
               <rect x="186" y="64" width="80" height="16" rx="2" fill="rgba(232,160,48,0.4)"/>
               <text x="191" y="75" font-family="monospace" font-size="6" fill="#e8e2d6">workout</text>
@@ -587,9 +571,7 @@
               <rect x="186" y="121" width="108" height="16" rx="2" fill="rgba(232,160,48,0.06)"/>
               <rect x="186" y="121" width="90" height="16" rx="2" fill="rgba(232,160,48,0.4)"/>
               <text x="191" y="132" font-family="monospace" font-size="6" fill="#e8e2d6">fish</text>
-              <!-- progress text -->
               <text x="240" y="157" font-family="monospace" font-size="7" fill="rgba(232,160,48,0.4)" text-anchor="middle">4 / 5 done today</text>
-              <!-- home indicator -->
               <rect x="220" y="172" width="40" height="4" rx="2" fill="rgba(232,160,48,0.2)"/>
             </svg>
           </div>
@@ -604,8 +586,8 @@
           <span class="project-status status-live">Live</span>
         </div>
       </div>
- 
-      <!-- Fish Identifier: full-width -->
+
+      <!-- Fish Identifier: full-width — FIXED SVG -->
       <div class="project-card reveal" style="grid-column:1/-1; display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start;">
         <div>
           <div class="project-number">Project 03 · Planned</div>
@@ -618,8 +600,13 @@
                     <stop offset="0%" stop-color="rgba(232,160,48,0.15)"/>
                     <stop offset="100%" stop-color="rgba(232,160,48,0)"/>
                   </radialGradient>
+                  <!-- clip path to contain result-card text -->
+                  <clipPath id="card-clip">
+                    <rect x="199" y="23" width="106" height="130" rx="3"/>
+                  </clipPath>
                 </defs>
                 <rect width="320" height="200" fill="#080808"/>
+
                 <!-- camera viewfinder -->
                 <rect x="10" y="16" width="120" height="96" rx="3" fill="rgba(10,30,14,0.8)" stroke="rgba(232,160,48,0.3)" stroke-width="1"/>
                 <!-- corner brackets -->
@@ -629,7 +616,7 @@
                 <path d="M126,112 L126,102 M120,108 L130,108" stroke="rgba(232,160,48,0.8)" stroke-width="1.5" fill="none"/>
                 <!-- scan glow -->
                 <rect x="10" y="16" width="120" height="96" rx="3" fill="url(#scanGlow)"/>
-                <!-- fish in viewfinder -->
+                <!-- fish silhouette -->
                 <ellipse cx="62" cy="64" rx="34" ry="17" fill="rgba(232,160,48,0.2)"/>
                 <polygon points="96,64 110,52 110,76" fill="rgba(232,160,48,0.18)"/>
                 <ellipse cx="44" cy="64" rx="7" ry="6" fill="rgba(232,160,48,0.1)"/>
@@ -639,37 +626,46 @@
                 <line x1="74" y1="48" x2="80" y2="55" stroke="rgba(232,160,48,0.25)" stroke-width="1"/>
                 <!-- target reticle -->
                 <circle cx="62" cy="64" r="24" fill="none" stroke="rgba(232,160,48,0.25)" stroke-width="0.8" stroke-dasharray="4 3"/>
-                <!-- scan line animation hint -->
+                <!-- scan line -->
                 <line x1="10" y1="52" x2="130" y2="52" stroke="rgba(78,201,106,0.5)" stroke-width="0.8"/>
                 <text x="70" y="124" font-family="monospace" font-size="7" fill="rgba(232,160,48,0.4)" text-anchor="middle">identifying…</text>
-                <!-- CNN pipeline middle -->
-                <text x="155" y="26" font-family="monospace" font-size="7" fill="rgba(232,160,48,0.35)" text-anchor="middle">ResNet-50 layers</text>
-                <!-- layer bars -->
+
+                <!-- CNN pipeline — shifted right so it clears the viewfinder -->
+                <text x="168" y="26" font-family="monospace" font-size="7" fill="rgba(232,160,48,0.35)" text-anchor="middle">ResNet-50 layers</text>
+                <!-- layer bars centred around x=168 -->
                 <rect x="138" y="34" width="10" height="56" rx="1" fill="rgba(232,160,48,0.15)"/>
                 <rect x="151" y="40" width="10" height="44" rx="1" fill="rgba(232,160,48,0.22)"/>
                 <rect x="164" y="46" width="8"  height="32" rx="1" fill="rgba(232,160,48,0.32)"/>
                 <rect x="175" y="52" width="7"  height="22" rx="1" fill="rgba(232,160,48,0.46)"/>
-                <!-- softmax output -->
-                <rect x="141" y="100" width="50" height="14" rx="2" fill="rgba(232,160,48,0.08)" stroke="rgba(232,160,48,0.2)" stroke-width="0.8"/>
-                <text x="166" y="110" font-family="monospace" font-size="6" fill="rgba(232,160,48,0.6)" text-anchor="middle">softmax(Wx+b)</text>
-                <!-- connecting arrows -->
+                <!-- softmax label -->
+                <rect x="133" y="100" width="60" height="14" rx="2" fill="rgba(232,160,48,0.08)" stroke="rgba(232,160,48,0.2)" stroke-width="0.8"/>
+                <text x="163" y="110" font-family="monospace" font-size="6" fill="rgba(232,160,48,0.6)" text-anchor="middle">softmax(Wx+b)</text>
+                <!-- arrow from viewfinder to layers -->
                 <line x1="131" y1="64" x2="138" y2="64" stroke="rgba(232,160,48,0.4)" stroke-width="1"/>
                 <polygon points="136,61 140,64 136,67" fill="rgba(232,160,48,0.4)"/>
-                <!-- result card right -->
-                <rect x="198" y="22" width="108" height="132" rx="4" fill="rgba(14,12,10,0.95)" stroke="rgba(232,160,48,0.45)" stroke-width="1"/>
-                <rect x="198" y="22" width="108" height="26" rx="4" fill="rgba(232,160,48,0.12)"/>
-                <text x="252" y="38" font-family="monospace" font-size="7" fill="rgba(232,160,48,0.7)" text-anchor="middle">IDENTIFICATION</text>
-                <text x="252" y="66" font-family="Georgia,serif" font-size="13" font-weight="700" fill="#e8e2d6" text-anchor="middle">Largemouth Bass</text>
-                <text x="252" y="82" font-family="monospace" font-size="7" fill="rgba(232,160,48,0.5)" text-anchor="middle">Micropterus salmoides</text>
-                <!-- confidence bar -->
-                <rect x="210" y="92" width="84" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
-                <rect x="210" y="92" width="79" height="6" rx="3" fill="rgba(78,201,106,0.7)"/>
-                <text x="252" y="110" font-family="monospace" font-size="7" fill="rgba(78,201,106,0.8)" text-anchor="middle">conf: 94.2%</text>
-                <!-- info lines -->
-                <line x1="208" y1="117" x2="296" y2="117" stroke="rgba(232,160,48,0.12)" stroke-width="0.5"/>
-                <text x="212" y="128" font-family="monospace" font-size="6.5" fill="rgba(200,180,140,0.7)">min size:  35 cm</text>
-                <text x="212" y="140" font-family="monospace" font-size="6.5" fill="rgba(200,180,140,0.7)">season:    open</text>
-                <text x="212" y="152" font-family="monospace" font-size="7" fill="rgba(78,201,106,0.9)">→ KEEP</text>
+
+                <!-- result card -->
+                <rect x="198" y="22" width="110" height="136" rx="4" fill="rgba(14,12,10,0.95)" stroke="rgba(232,160,48,0.45)" stroke-width="1"/>
+                <!-- header bar -->
+                <rect x="198" y="22" width="110" height="24" rx="4" fill="rgba(232,160,48,0.12)"/>
+                <text x="253" y="37" font-family="monospace" font-size="7" fill="rgba(232,160,48,0.7)" text-anchor="middle">IDENTIFICATION</text>
+
+                <!-- card text clipped to card bounds -->
+                <g clip-path="url(#card-clip)">
+                  <text x="253" y="60" font-family="Georgia,serif" font-size="11" font-weight="700" fill="#e8e2d6" text-anchor="middle">Largemouth Bass</text>
+                  <text x="253" y="74" font-family="monospace" font-size="7" fill="rgba(232,160,48,0.5)" text-anchor="middle">Micropterus salmoides</text>
+                  <!-- confidence bar -->
+                  <rect x="208" y="83" width="86" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
+                  <rect x="208" y="83" width="81" height="6" rx="3" fill="rgba(78,201,106,0.7)"/>
+                  <text x="253" y="101" font-family="monospace" font-size="7" fill="rgba(78,201,106,0.8)" text-anchor="middle">conf: 94.2%</text>
+                  <!-- stars -->
+                  <text x="253" y="120" font-family="Georgia,serif" font-size="15" fill="#e8a030" text-anchor="middle">★★★★★</text>
+                  <!-- divider -->
+                  <line x1="205" y1="128" x2="303" y2="128" stroke="rgba(232,160,48,0.12)" stroke-width="0.5"/>
+                  <text x="206" y="138" font-family="monospace" font-size="6.5" fill="rgba(200,180,140,0.7)">min size:  35 cm</text>
+                  <text x="206" y="149" font-family="monospace" font-size="6.5" fill="rgba(200,180,140,0.7)">season:    open</text>
+                  <text x="206" y="151" font-family="monospace" font-size="7" fill="rgba(78,201,106,0.9)">→ KEEP</text>
+                </g>
               </svg>
             </div>
           </div>
@@ -692,11 +688,11 @@
           </div>
         </div>
       </div>
- 
+
     </div>
   </div>
 </section>
- 
+
 <!-- COURSEWORK / MATH -->
 <section id="math">
   <div class="container">
@@ -704,35 +700,33 @@
       <span class="section-num">§ 04 — Coursework</span>
       <h2 class="section-title">The <em>math</em></h2>
     </div>
-    <div class="math-grid">
- 
-      <div class="math-block reveal">
+
+    <!-- 3 vertical course blocks -->
+    <div class="math-grid" style="margin-bottom:24px;">
+
+      <!-- Optimization → modal -->
+      <div class="math-block clickable reveal" onclick="document.getElementById('opt-modal-overlay').classList.add('open')">
         <span class="math-block-title">Optimization</span>
         <div class="math-block-body">
           LP, IP, NLP — simplex method, duality theory, convexity. Not just "here's how to run the solver" but the theory behind why the simplex works and what strong duality actually means.
           <code class="math-eq">min cᵀx  s.t. Ax ≤ b,  x ≥ 0</code>
           Directly applicable to how constrained ML training is formulated.
+          <span class="math-open-hint">click to open notes ↗</span>
         </div>
       </div>
- 
-      <div class="math-block reveal">
+
+      <!-- Linear Algebra → modal -->
+      <div class="math-block clickable reveal" onclick="document.getElementById('linalg-modal-overlay').classList.add('open')">
         <span class="math-block-title">Linear Algebra I &amp; II</span>
         <div class="math-block-body">
           Vector spaces, eigendecomposition, singular value decomposition. Proof-level — not just computation but why A = UΣVᵀ exists and what the geometry means.
           <code class="math-eq">A = U Σ Vᵀ,  Σ = diag(σ₁, …, σₙ)</code>
           The theoretical basis for PCA, recommendation systems, and low-rank approximation.
+          <span class="math-open-hint">click to open notes ↗</span>
         </div>
       </div>
- 
-      <div class="math-block reveal">
-        <span class="math-block-title">Introduction to Proofs</span>
-        <div class="math-block-body">
-          Fermat's little theorem, CRT, RSA public-key crypto, contradiction, truth tables, set theory. The course that changes how you think, not just what you know.
-          <code class="math-eq">aᵖ⁻¹ ≡ 1 (mod p),  gcd(a, p) = 1</code>
-        </div>
-      </div>
- 
-      <!-- Calculus: clickable → modal -->
+
+      <!-- Calculus → modal -->
       <div class="math-block clickable reveal" id="calc-block" onclick="document.getElementById('calc-modal-overlay').classList.add('open')">
         <span class="math-block-title">Calculus I &amp; II</span>
         <div class="math-block-body">
@@ -741,60 +735,61 @@
           <span class="math-open-hint">click to open coursework notes ↗</span>
         </div>
       </div>
- 
-      <!-- Interactive Linear Transformation Viz (replaces awards block) -->
-      <div class="math-viz-block reveal">
-        <div class="math-viz-top">
-          <span class="math-block-title" style="margin-bottom:0">Visualize: Linear Transformation</span>
-          <div class="math-viz-presets">
-            <button class="viz-btn" onclick="setMatrix(1,0,0,1)">Identity</button>
-            <button class="viz-btn" onclick="setMatrix(0,-1,1,0)">Rotate 90°</button>
-            <button class="viz-btn" onclick="setMatrix(1,1,0,1)">Shear</button>
-            <button class="viz-btn" onclick="setMatrix(-1,0,0,1)">Reflect X</button>
-            <button class="viz-btn" onclick="setMatrix(2,0,0,0.5)">Scale</button>
-          </div>
+
+    </div>
+
+    <!-- Interactive Linear Transformation Viz (full width) -->
+    <div class="math-viz-block reveal">
+      <div class="math-viz-top">
+        <span class="math-block-title" style="margin-bottom:0">Visualize: Linear Transformation</span>
+        <div class="math-viz-presets">
+          <button class="viz-btn" onclick="setMatrix(1,0,0,1)">Identity</button>
+          <button class="viz-btn" onclick="setMatrix(0,-1,1,0)">Rotate 90°</button>
+          <button class="viz-btn" onclick="setMatrix(1,1,0,1)">Shear</button>
+          <button class="viz-btn" onclick="setMatrix(-1,0,0,1)">Reflect X</button>
+          <button class="viz-btn" onclick="setMatrix(2,0,0,0.5)">Scale</button>
         </div>
-        <div class="math-viz-layout">
-          <canvas id="lin-canvas" width="520" height="300"></canvas>
-          <div class="viz-controls">
-            <div class="viz-matrix">
-              <div class="viz-matrix-label">Matrix A</div>
-              <div class="viz-input-wrap">
-                <span class="viz-input-lbl">a₁₁</span>
-                <input class="viz-input" id="v-a" type="number" value="1" step="0.1" oninput="updateViz()"/>
-              </div>
-              <div class="viz-input-wrap">
-                <span class="viz-input-lbl">a₁₂</span>
-                <input class="viz-input" id="v-b" type="number" value="0" step="0.1" oninput="updateViz()"/>
-              </div>
-              <div class="viz-input-wrap">
-                <span class="viz-input-lbl">a₂₁</span>
-                <input class="viz-input" id="v-c" type="number" value="0" step="0.1" oninput="updateViz()"/>
-              </div>
-              <div class="viz-input-wrap">
-                <span class="viz-input-lbl">a₂₂</span>
-                <input class="viz-input" id="v-d" type="number" value="1" step="0.1" oninput="updateViz()"/>
-              </div>
+      </div>
+      <div class="math-viz-layout">
+        <canvas id="lin-canvas" width="520" height="300"></canvas>
+        <div class="viz-controls">
+          <div class="viz-matrix">
+            <div class="viz-matrix-label">Matrix A</div>
+            <div class="viz-input-wrap">
+              <span class="viz-input-lbl">a₁₁</span>
+              <input class="viz-input" id="v-a" type="number" value="1" step="0.1" oninput="updateViz()"/>
             </div>
-            <div class="viz-data">
-              <div class="viz-stat">det(A) = <span id="v-det">1.00</span></div>
-              <div class="viz-stat">tr(A) = <span id="v-tr">2.00</span></div>
-              <div class="viz-stat" id="v-eig">λ = 1, 1</div>
+            <div class="viz-input-wrap">
+              <span class="viz-input-lbl">a₁₂</span>
+              <input class="viz-input" id="v-b" type="number" value="0" step="0.1" oninput="updateViz()"/>
             </div>
-            <div class="viz-legend">
-              <div class="viz-legend-item"><div class="viz-legend-dot" style="background:rgba(232,160,48,0.5)"></div>original grid</div>
-              <div class="viz-legend-item"><div class="viz-legend-dot" style="background:rgba(232,160,48,0.95)"></div>transformed</div>
-              <div class="viz-legend-item"><div class="viz-legend-dot" style="background:#4ec96a;height:2px;border-top:2px dashed #4ec96a;background:transparent"></div>eigenvectors</div>
-              <div class="viz-legend-item"><div class="viz-legend-dot" style="background:#6ab0e8"></div>basis vectors ê₁ ê₂</div>
+            <div class="viz-input-wrap">
+              <span class="viz-input-lbl">a₂₁</span>
+              <input class="viz-input" id="v-c" type="number" value="0" step="0.1" oninput="updateViz()"/>
             </div>
+            <div class="viz-input-wrap">
+              <span class="viz-input-lbl">a₂₂</span>
+              <input class="viz-input" id="v-d" type="number" value="1" step="0.1" oninput="updateViz()"/>
+            </div>
+          </div>
+          <div class="viz-data">
+            <div class="viz-stat">det(A) = <span id="v-det">1.00</span></div>
+            <div class="viz-stat">tr(A) = <span id="v-tr">2.00</span></div>
+            <div class="viz-stat" id="v-eig">λ = 1, 1</div>
+          </div>
+          <div class="viz-legend">
+            <div class="viz-legend-item"><div class="viz-legend-dot" style="background:rgba(232,160,48,0.5)"></div>original grid</div>
+            <div class="viz-legend-item"><div class="viz-legend-dot" style="background:rgba(232,160,48,0.95)"></div>transformed</div>
+            <div class="viz-legend-item"><div class="viz-legend-dot" style="background:#4ec96a;height:2px;border-top:2px dashed #4ec96a;background:transparent"></div>eigenvectors</div>
+            <div class="viz-legend-item"><div class="viz-legend-dot" style="background:#6ab0e8"></div>basis vectors ê₁ ê₂</div>
           </div>
         </div>
       </div>
- 
     </div>
+
   </div>
 </section>
- 
+
 <!-- CURRENTLY (live data) -->
 <section id="currently">
   <div class="container">
@@ -803,7 +798,9 @@
       <h2 class="section-title">Right <em>now</em></h2>
     </div>
     <div class="live-grid">
-      <div class="live-card reveal">
+
+      <!-- Chess.com — clickable -->
+      <a class="live-card reveal" href="https://www.chess.com/member/005corch" target="_blank" rel="noopener">
         <div class="live-card-header">
           <span class="live-card-source">Chess.com</span>
           <span class="live-dot loading" id="chess-dot"></span>
@@ -811,8 +808,10 @@
         <div class="live-card-value" id="chess-rating"><span class="live-placeholder">—</span></div>
         <div class="live-card-label" id="chess-label">Rapid rating</div>
         <div class="live-card-sub" id="chess-sub">loading…</div>
-      </div>
-      <div class="live-card reveal">
+      </a>
+
+      <!-- Letterboxd — clickable -->
+      <a class="live-card reveal" href="https://letterboxd.com/MJScorch/" target="_blank" rel="noopener">
         <div class="live-card-header">
           <span class="live-card-source">Letterboxd</span>
           <span class="live-dot loading" id="lb-dot"></span>
@@ -820,8 +819,10 @@
         <div class="live-card-value" id="lb-film" style="font-size:16px;font-family:var(--serif);font-style:italic;align-items:flex-start;"><span class="live-placeholder">—</span></div>
         <div class="live-card-label">Last watched</div>
         <div class="live-card-sub" id="lb-sub">loading…</div>
-      </div>
-      <div class="live-card reveal">
+      </a>
+
+      <!-- GitHub — clickable -->
+      <a class="live-card reveal" href="https://github.com/MJScorch" target="_blank" rel="noopener">
         <div class="live-card-header">
           <span class="live-card-source">GitHub</span>
           <span class="live-dot loading" id="gh-dot"></span>
@@ -829,11 +830,12 @@
         <div class="live-card-value" id="gh-repo" style="font-size:15px;font-family:var(--mono);"><span class="live-placeholder">—</span></div>
         <div class="live-card-label">Latest push</div>
         <div class="live-card-sub" id="gh-sub">loading…</div>
-      </div>
+      </a>
+
     </div>
   </div>
 </section>
- 
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
@@ -875,15 +877,72 @@
     </div>
   </div>
 </section>
- 
+
 <footer>
   <div class="footer-inner">
     <span class="footer-copy">© 2026 Matthew Scorziello · University of Waterloo</span>
     <span class="footer-sig">Built from first principles.</span>
   </div>
 </footer>
- 
-<!-- CALCULUS MODAL -->
+
+<!-- ══════════════════════════════════════════════════
+     OPTIMIZATION MODAL — Work in Progress
+     ══════════════════════════════════════════════════ -->
+<div class="calc-modal-overlay" id="opt-modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="calc-modal">
+    <div class="calc-modal-header">
+      <span class="calc-modal-title">Optimization — Course Notes</span>
+      <button class="calc-modal-close" onclick="document.getElementById('opt-modal-overlay').classList.remove('open')">×</button>
+    </div>
+    <div class="wip-body">
+      <div class="wip-icon">⚙</div>
+      <span class="wip-label">Work in Progress</span>
+      <h2 class="wip-heading">Notes coming soon</h2>
+      <p class="wip-desc">I'm compiling typed notes and worked problems from this course. Planning to upload once the semester wraps and I've had a chance to clean them up.</p>
+      <div class="wip-plan">
+        <div class="wip-plan-item">LP/IP problem sets with annotated simplex tableaux</div>
+        <div class="wip-plan-item">Duality theory proofs and complementary slackness examples</div>
+        <div class="wip-plan-item">Convexity and KKT conditions for NLP</div>
+        <div class="wip-plan-item">Connection to ML: SVM as a QP, gradient descent as unconstrained NLP</div>
+      </div>
+    </div>
+    <div class="calc-modal-footer">
+      <p>Check back later — or see <a href="https://github.com/MJScorch" target="_blank">github.com/MJScorch</a> for anything already uploaded.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     LINEAR ALGEBRA MODAL — Work in Progress
+     ══════════════════════════════════════════════════ -->
+<div class="calc-modal-overlay" id="linalg-modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="calc-modal">
+    <div class="calc-modal-header">
+      <span class="calc-modal-title">Linear Algebra I &amp; II — Course Notes</span>
+      <button class="calc-modal-close" onclick="document.getElementById('linalg-modal-overlay').classList.remove('open')">×</button>
+    </div>
+    <div class="wip-body">
+      <div class="wip-icon">∑</div>
+      <span class="wip-label">Work in Progress</span>
+      <h2 class="wip-heading">Notes coming soon</h2>
+      <p class="wip-desc">Working through the proof-level material and writing up solutions to the problem sets. SVD and eigendecomposition sections are the priority.</p>
+      <div class="wip-plan">
+        <div class="wip-plan-item">Vector space axioms and subspace proofs</div>
+        <div class="wip-plan-item">Eigenvalue / eigenvector derivations with geometric interpretation</div>
+        <div class="wip-plan-item">Full SVD proof: A = UΣVᵀ, existence and uniqueness</div>
+        <div class="wip-plan-item">Applications: PCA, low-rank approximation, pseudoinverse</div>
+        <div class="wip-plan-item">Selected problem set solutions with full write-ups</div>
+      </div>
+    </div>
+    <div class="calc-modal-footer">
+      <p>Check back later — or see <a href="https://github.com/MJScorch" target="_blank">github.com/MJScorch</a> for anything already uploaded.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     CALCULUS MODAL
+     ══════════════════════════════════════════════════ -->
 <div class="calc-modal-overlay" id="calc-modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="calc-modal">
     <div class="calc-modal-header">
@@ -935,12 +994,12 @@
     </div>
   </div>
 </div>
- 
+
 <script>
   const CHESS_USERNAME = '005corch';
   const LETTERBOXD_USERNAME = 'MJScorch';
   const GITHUB_USERNAME = 'MJScorch';
- 
+
   // scroll reveal
   const revealObs = new IntersectionObserver(
     entries => entries.forEach(e => {
@@ -952,12 +1011,12 @@
     el.style.transitionDelay = `${(i % 4) * 0.075}s`;
     revealObs.observe(el);
   });
- 
+
   function setDot(id, state) {
     const d = document.getElementById(id);
     if (d) d.className = 'live-dot ' + state;
   }
- 
+
   // Chess — rapid as primary
   async function loadChess() {
     try {
@@ -981,7 +1040,7 @@
       setDot('chess-dot', 'error');
     }
   }
- 
+
   // Letterboxd — two proxies, better rating parsing, full star display
   async function loadLetterboxd() {
     const rssUrl = `https://letterboxd.com/${LETTERBOXD_USERNAME}/rss/`;
@@ -1000,32 +1059,26 @@
         const items = xml.querySelectorAll('item');
         if (!items.length) continue;
         const first = items[0];
- 
-        // title: strip "Watched: Film Title, Year"
+
         const raw = first.querySelector('title')?.textContent || '';
         const title = raw.replace(/^Watched:\s*/i,'').replace(/,\s*\d{4}$/, '').trim() || '—';
- 
-        // date
+
         const dateTxt = first.querySelector('pubDate')?.textContent;
         const dateStr = dateTxt ? new Date(dateTxt).toLocaleDateString('en-CA', {month:'short', day:'numeric'}) : '';
- 
-        // rating — try multiple namespace approaches + regex fallback
+
         let rating = null;
         try { rating = first.getElementsByTagNameNS('https://letterboxd.com','memberRating')[0]?.textContent; } catch{}
         if (!rating) try { rating = first.getElementsByTagName('letterboxd:memberRating')[0]?.textContent; } catch{}
         if (!rating) {
-          // walk all child elements
           for (const el of first.children) {
             if (el.localName === 'memberRating') { rating = el.textContent; break; }
           }
         }
         if (!rating) {
-          // regex on raw XML
           const m = text.match(/<(?:[^:>]*:)?memberRating[^>]*>([0-9.]+)<\/(?:[^:>]*:)?memberRating>/);
           if (m) rating = m[1];
         }
- 
-        // Build star string from numeric rating (0.5–5.0, half-star increments)
+
         let starStr = '';
         if (rating) {
           const r = parseFloat(rating);
@@ -1033,7 +1086,7 @@
           const half = (r - full) >= 0.5;
           starStr = '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(5 - full - (half ? 1 : 0));
         }
- 
+
         const filmEl = document.getElementById('lb-film');
         filmEl.textContent = title.length > 32 ? title.slice(0,31) + '…' : title;
         const subParts = [dateStr, starStr].filter(Boolean);
@@ -1046,7 +1099,7 @@
     document.getElementById('lb-sub').textContent = 'proxy unavailable';
     setDot('lb-dot', 'error');
   }
- 
+
   // GitHub
   async function loadGitHub() {
     try {
@@ -1076,13 +1129,13 @@
       setDot('gh-dot','error');
     }
   }
- 
+
   loadChess(); loadLetterboxd(); loadGitHub();
- 
+
   // ── LINEAR TRANSFORMATION VISUALIZER ──
   const canvas = document.getElementById('lin-canvas');
   const ctx    = canvas ? canvas.getContext('2d') : null;
- 
+
   function getMatrix() {
     return [
       parseFloat(document.getElementById('v-a').value) || 0,
@@ -1091,7 +1144,7 @@
       parseFloat(document.getElementById('v-d').value) || 0
     ];
   }
- 
+
   function setMatrix(a, b, c, d) {
     document.getElementById('v-a').value = a;
     document.getElementById('v-b').value = b;
@@ -1099,12 +1152,12 @@
     document.getElementById('v-d').value = d;
     updateViz();
   }
- 
+
   function toScreen(x, y) {
     const sc = 46, cx = canvas.width/2, cy = canvas.height/2;
     return [cx + x*sc, cy - y*sc];
   }
- 
+
   function drawArrow(x1, y1, x2, y2, color, width) {
     const dx = x2-x1, dy = y2-y1, len = Math.sqrt(dx*dx+dy*dy);
     if (len < 2) return;
@@ -1118,15 +1171,15 @@
     ctx.lineTo(x2 - hs*Math.cos(angle+0.38), y2 - hs*Math.sin(angle+0.38));
     ctx.closePath(); ctx.fill();
   }
- 
+
   function drawViz() {
     if (!ctx) return;
     const w = canvas.width, h = canvas.height;
     const [a, b, c, d] = getMatrix();
- 
+
     ctx.clearRect(0, 0, w, h);
     ctx.fillStyle = '#111'; ctx.fillRect(0, 0, w, h);
- 
+
     // Original grid (faint)
     ctx.strokeStyle = 'rgba(232,160,48,0.10)'; ctx.lineWidth = 0.8;
     for (let i = -7; i <= 7; i++) {
@@ -1135,7 +1188,7 @@
       const [x3,y3] = toScreen(-7,i), [x4,y4] = toScreen(7,i);
       ctx.beginPath(); ctx.moveTo(x3,y3); ctx.lineTo(x4,y4); ctx.stroke();
     }
- 
+
     // Transformed grid
     ctx.strokeStyle = 'rgba(232,160,48,0.5)'; ctx.lineWidth = 1;
     for (let i = -7; i <= 7; i++) {
@@ -1148,19 +1201,19 @@
       const [ex2,ey2] = toScreen(a*7 + b*i, c*7 + d*i);
       ctx.moveTo(sx2,sy2); ctx.lineTo(ex2,ey2); ctx.stroke();
     }
- 
+
     // Origin axes (brighter)
     ctx.strokeStyle = 'rgba(232,160,48,0.25)'; ctx.lineWidth = 1;
     const [ox,oy] = toScreen(0,0);
     ctx.beginPath(); ctx.moveTo(0,oy); ctx.lineTo(w,oy); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(ox,0); ctx.lineTo(ox,h); ctx.stroke();
- 
+
     // Transformed basis vectors
     const [e1x,e1y] = toScreen(a, c);
     const [e2x,e2y] = toScreen(b, d);
     drawArrow(ox, oy, e1x, e1y, 'rgba(232,160,48,0.95)', 2.5);
     drawArrow(ox, oy, e2x, e2y, 'rgba(106,176,232,0.85)', 2.5);
- 
+
     // Eigenvalues & eigenvectors
     const tr = a + d, det = a*d - b*c;
     const disc = tr*tr - 4*det;
@@ -1188,18 +1241,16 @@
       const re = tr/2, im = Math.sqrt(-disc)/2;
       eigStr = `λ = ${re.toFixed(2)} ± ${im.toFixed(2)}i  (complex)`;
     }
- 
+
     document.getElementById('v-det').textContent = det.toFixed(2);
     document.getElementById('v-tr').textContent  = tr.toFixed(2);
-    document.getElementById('v-eig').innerHTML   = eigStr.replace('λ','<span>λ</span>').replace(/(-?[0-9.]+(?:i)?)/g,'<span>$1</span>');
     document.getElementById('v-eig').textContent = eigStr;
   }
- 
+
   function updateViz() { drawViz(); }
- 
+
   if (canvas) {
     drawViz();
-    // redraw on resize
     new ResizeObserver(() => drawViz()).observe(canvas.parentElement);
   }
 </script>
