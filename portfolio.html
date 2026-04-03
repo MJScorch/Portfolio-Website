@@ -309,7 +309,7 @@
   <div class="container">
     <p class="hero-label">BMath · Computational Mathematics · University of Waterloo</p>
     <h1 class="hero-name">Matthew<br><em>Scorziello</em></h1>
-    <p class="hero-tagline">I like fishing.</p>
+    <p class="hero-tagline">A web portfolio about me.</p>
     <div class="hero-cta">
       <a href="#experience" class="btn-primary">View Work</a>
       <a href="mailto:scorziello.matthew@gmail.com" class="btn-secondary">Get in Touch</a>
@@ -664,7 +664,6 @@
                   <line x1="205" y1="128" x2="303" y2="128" stroke="rgba(232,160,48,0.12)" stroke-width="0.5"/>
                   <text x="206" y="138" font-family="monospace" font-size="6.5" fill="rgba(200,180,140,0.7)">min size:  35 cm</text>
                   <text x="206" y="149" font-family="monospace" font-size="6.5" fill="rgba(200,180,140,0.7)">season:    open</text>
-                  <text x="206" y="151" font-family="monospace" font-size="7" fill="rgba(78,201,106,0.9)">→ KEEP</text>
                 </g>
               </svg>
             </div>
@@ -675,7 +674,7 @@
         <div style="padding-top:4px;">
           <div style="margin-bottom:24px;">
             <span class="math-block-title">Under the hood</span>
-            <p style="font-size:15px;color:var(--text-dim);line-height:1.8;">Fine-tuned CNN using transfer learning on a pretrained ResNet. The heavy lifting — low-level feature detection — is already learned. Fine-tuning adapts the final layers to fish species classification specifically, which means reasonable results without an enormous dataset.</p>
+            <p style="font-size:15px;color:var(--text-dim);line-height:1.8;">"Fine-tuned CNN using transfer learning on a pretrained ResNet. The heavy lifting — low-level feature detection — is already learned. Fine-tuning adapts the final layers to fish species classification specifically, which means reasonable results without an enormous dataset." ~ Claude</p>
             <code class="math-eq" style="margin-top:14px;font-size:11px;">f(x) = softmax(W · ResNet(x) + b)</code>
           </div>
           <div class="exp-tags" style="margin-bottom:24px;">
@@ -708,31 +707,32 @@
       <div class="math-block clickable reveal" onclick="document.getElementById('opt-modal-overlay').classList.add('open')">
         <span class="math-block-title">Optimization</span>
         <div class="math-block-body">
-          LP, IP, NLP — simplex method, duality theory, convexity. Not just "here's how to run the solver" but the theory behind why the simplex works and what strong duality actually means.
+          Linear programs, Integer Programs, Duality, Nonlinear Optimization, ML and Gradient Descent
           <code class="math-eq">min cᵀx  s.t. Ax ≤ b,  x ≥ 0</code>
-          Directly applicable to how constrained ML training is formulated.
+          A Gentle Introduction to Optimization by Guenin, B., Könemann, J., & Tunçel, L. 
           <span class="math-open-hint">click to open notes ↗</span>
         </div>
       </div>
 
       <!-- Linear Algebra → modal -->
       <div class="math-block clickable reveal" onclick="document.getElementById('linalg-modal-overlay').classList.add('open')">
-        <span class="math-block-title">Linear Algebra I &amp; II</span>
+        <span class="math-block-title">Linear Algebra</span>
         <div class="math-block-body">
-          Vector spaces, eigendecomposition, singular value decomposition. Proof-level — not just computation but why A = UΣVᵀ exists and what the geometry means.
+          Eigenvalues, Vector Spaces, Isomorphisms, Orthogonal Decomposition Theorem, SVD of Matracies.
           <code class="math-eq">A = U Σ Vᵀ,  Σ = diag(σ₁, …, σₙ)</code>
-          The theoretical basis for PCA, recommendation systems, and low-rank approximation.
+          Made possible by 3Blue1Brown.
           <span class="math-open-hint">click to open notes ↗</span>
         </div>
       </div>
 
       <!-- Calculus → modal -->
       <div class="math-block clickable reveal" id="calc-block" onclick="document.getElementById('calc-modal-overlay').classList.add('open')">
-        <span class="math-block-title">Calculus I &amp; II</span>
+        <span class="math-block-title">Calculus</span>
         <div class="math-block-body">
-          Rigorous single and multivariable calculus. Limits, series convergence, integration. The foundation for understanding loss surfaces, gradient descent, and convergence.
-          <code class="math-eq">∇L(w) = (1/n) Xᵀ(Xw − y)</code>
-          <span class="math-open-hint">click to open coursework notes ↗</span>
+          Partial Derivatives, Gradient Vector Field, Triple Integrals, Taylor's Theorem.
+          <code class="math-eq">...</code>
+          Still learning...
+          <span class="math-open-hint">click to open notes ↗</span>
         </div>
       </div>
 
@@ -845,7 +845,7 @@
     </div>
     <div class="contact-grid">
       <div class="contact-body reveal">
-        <p>Looking for ML-adjacent roles — internships, research, or full-time. Particularly interested in places where the math background is actually useful, not just a credential. Open to defense, finance, or early startups.</p>
+        <p>Looking for ML-adjacent roles — internships, research, or full-time. Open to all industries, all types of companies, and all locations.</p>
         <div class="contact-links">
           <a href="mailto:scorziello.matthew@gmail.com" class="contact-link">
             <span class="contact-link-icon">Email</span>
@@ -870,7 +870,7 @@
           <span class="interest-item">Mahjong (MCR)</span>
           <span class="interest-item">Letterboxd</span>
           <span class="interest-item">Chess</span>
-          <span class="interest-item">The Wire</span>
+          <span class="interest-item">Travelling</span>
           <span class="interest-item">Catan</span>
         </div>
       </div>
@@ -895,15 +895,16 @@
       <button class="calc-modal-close" onclick="document.getElementById('opt-modal-overlay').classList.remove('open')">×</button>
     </div>
     <div class="wip-body">
-      <div class="wip-icon">⚙</div>
+      <div class="wip-icon">∑</div>
       <span class="wip-label">Work in Progress</span>
       <h2 class="wip-heading">Notes coming soon</h2>
-      <p class="wip-desc">I'm compiling typed notes and worked problems from this course. Planning to upload once the semester wraps and I've had a chance to clean them up.</p>
+      <p class="wip-desc">Working on getting some proof material and writing up solutions to problem sets.</p>
       <div class="wip-plan">
-        <div class="wip-plan-item">LP/IP problem sets with annotated simplex tableaux</div>
-        <div class="wip-plan-item">Duality theory proofs and complementary slackness examples</div>
-        <div class="wip-plan-item">Convexity and KKT conditions for NLP</div>
-        <div class="wip-plan-item">Connection to ML: SVM as a QP, gradient descent as unconstrained NLP</div>
+        <div class="wip-plan-item">...</div>
+        <div class="wip-plan-item">...</div>
+        <div class="wip-plan-item">...</div>
+        <div class="wip-plan-item">...</div>
+        <div class="wip-plan-item">...</div>
       </div>
     </div>
     <div class="calc-modal-footer">
@@ -918,20 +919,20 @@
 <div class="calc-modal-overlay" id="linalg-modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="calc-modal">
     <div class="calc-modal-header">
-      <span class="calc-modal-title">Linear Algebra I &amp; II — Course Notes</span>
+      <span class="calc-modal-title">Linear Algebra — Course Notes</span>
       <button class="calc-modal-close" onclick="document.getElementById('linalg-modal-overlay').classList.remove('open')">×</button>
     </div>
     <div class="wip-body">
       <div class="wip-icon">∑</div>
       <span class="wip-label">Work in Progress</span>
       <h2 class="wip-heading">Notes coming soon</h2>
-      <p class="wip-desc">Working through the proof-level material and writing up solutions to the problem sets. SVD and eigendecomposition sections are the priority.</p>
+      <p class="wip-desc">Working on getting some proof material and writing up solutions to problem sets.</p>
       <div class="wip-plan">
-        <div class="wip-plan-item">Vector space axioms and subspace proofs</div>
-        <div class="wip-plan-item">Eigenvalue / eigenvector derivations with geometric interpretation</div>
-        <div class="wip-plan-item">Full SVD proof: A = UΣVᵀ, existence and uniqueness</div>
-        <div class="wip-plan-item">Applications: PCA, low-rank approximation, pseudoinverse</div>
-        <div class="wip-plan-item">Selected problem set solutions with full write-ups</div>
+        <div class="wip-plan-item">...</div>
+        <div class="wip-plan-item">...</div>
+        <div class="wip-plan-item">...</div>
+        <div class="wip-plan-item">...</div>
+        <div class="wip-plan-item">...</div>
       </div>
     </div>
     <div class="calc-modal-footer">
@@ -941,56 +942,29 @@
 </div>
 
 <!-- ══════════════════════════════════════════════════
-     CALCULUS MODAL
+     CALCULUS MODAL - Work in Progress
      ══════════════════════════════════════════════════ -->
 <div class="calc-modal-overlay" id="calc-modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="calc-modal">
     <div class="calc-modal-header">
-      <span class="calc-modal-title">Calculus I &amp; II — Course Notes</span>
+      <span class="calc-modal-title">Calculus — Course Notes</span>
       <button class="calc-modal-close" onclick="document.getElementById('calc-modal-overlay').classList.remove('open')">×</button>
     </div>
-    <div class="calc-modal-body">
-      <div class="calc-section">
-        <div class="calc-section-title">Limits &amp; Continuity</div>
-        <div class="calc-entry">
-          <div class="calc-entry-name">Epsilon-Delta Definition</div>
-          <div class="calc-entry-body">lim(x→a) f(x) = L means: for every ε > 0 there exists δ > 0 such that |x − a| < δ implies |f(x) − L| < ε. This is the rigorous foundation that makes calculus honest.</div>
-          <code class="math-eq">∀ε>0, ∃δ>0 : 0 < |x−a| < δ ⟹ |f(x)−L| < ε</code>
-        </div>
-        <div class="calc-entry">
-          <div class="calc-entry-name">Squeeze Theorem</div>
-          <div class="calc-entry-body">If g(x) ≤ f(x) ≤ h(x) near a, and lim g = lim h = L, then lim f = L. Used to prove lim(sin x / x) = 1 as x → 0.</div>
-        </div>
-      </div>
-      <div class="calc-section">
-        <div class="calc-section-title">Differentiation</div>
-        <div class="calc-entry">
-          <div class="calc-entry-name">Chain Rule</div>
-          <div class="calc-entry-body">The derivative of a composition. Fundamental to backpropagation in neural networks — every gradient computation is repeated chain rule application.</div>
-          <code class="math-eq">(f ∘ g)'(x) = f'(g(x)) · g'(x)</code>
-        </div>
-        <div class="calc-entry">
-          <div class="calc-entry-name">Taylor Series</div>
-          <div class="calc-entry-body">Any smooth function can be approximated by an infinite polynomial. The error bound on truncation gives you a handle on how good your approximation actually is.</div>
-          <code class="math-eq">f(x) = Σ f⁽ⁿ⁾(a)/n! · (x−a)ⁿ</code>
-        </div>
-      </div>
-      <div class="calc-section">
-        <div class="calc-section-title">Integration</div>
-        <div class="calc-entry">
-          <div class="calc-entry-name">Fundamental Theorem of Calculus</div>
-          <div class="calc-entry-body">Differentiation and integration are inverse operations. Part II connects antiderivatives to definite integrals and is the reason calculus is computable in practice.</div>
-          <code class="math-eq">∫ₐᵇ f(x) dx = F(b) − F(a),   F' = f</code>
-        </div>
-        <div class="calc-entry">
-          <div class="calc-entry-name">Convergence of Series</div>
-          <div class="calc-entry-body">Ratio test, root test, integral test, comparison. Understanding convergence is what separates a formal power series from a function you can actually evaluate.</div>
-          <code class="math-eq">Σ aₙ converges if lim|aₙ₊₁/aₙ| < 1</code>
-        </div>
+    <div class="wip-body">
+      <div class="wip-icon">∑</div>
+      <span class="wip-label">Work in Progress</span>
+      <h2 class="wip-heading">Notes coming soon</h2>
+      <p class="wip-desc">Working on getting some proof material and writing up solutions to problem sets.</p>
+      <div class="wip-plan">
+        <div class="wip-plan-item">...</div>
+        <div class="wip-plan-item">...</div>
+        <div class="wip-plan-item">...</div>
+        <div class="wip-plan-item">...</div>
+        <div class="wip-plan-item">...</div>
       </div>
     </div>
     <div class="calc-modal-footer">
-      <p>Full typed coursework notes are on <a href="https://github.com/MJScorch" target="_blank">GitHub</a> — I'll link them here when uploaded. The plan is to add scanned problem sets and proof writeups once the semester wraps.</p>
+      <p>Check back later — or see <a href="https://github.com/MJScorch" target="_blank">github.com/MJScorch</a> for anything already uploaded.</p>
     </div>
   </div>
 </div>
