@@ -204,9 +204,9 @@
     .live-placeholder { color:var(--text-muted) !important; font-size:18px !important; }
 
     /* card logo badge */
-    .live-card-logo { position:absolute; bottom:12px; right:12px; width:24px; height:24px; opacity:0.35; transition:opacity .2s; pointer-events:none; object-fit:contain; }
-    a.live-card:hover .live-card-logo { opacity:0.75; }
-    .live-card:not(a):hover .live-card-logo { opacity:0.6; }
+    .live-card-logo { position:absolute; bottom:12px; right:12px; width:26px; height:26px; opacity:1; transition:opacity .2s; pointer-events:none; object-fit:contain; }
+    a.live-card:hover .live-card-logo { opacity:1; }
+    .live-card:not(a):hover .live-card-logo { opacity:1; }
 
     /* contact */
     .contact-grid { display:grid; grid-template-columns:1fr auto; gap:64px; align-items:start; }
@@ -316,7 +316,7 @@
     <p class="hero-tagline">A web portfolio about me.</p>
     <div class="hero-cta">
       <a href="#experience" class="btn-primary">View Work</a>
-      <a href="/cdn-cgi/l/email-protection#c2b1a1adb0b8aba7aeaeadecafa3b6b6aaa7b582a5afa3abaeeca1adaf" class="btn-secondary">Get in Touch</a>
+      <a href="mailto:scorziello.matthew@gmail.com" class="btn-secondary">Get in Touch</a>
     </div>
     <div class="hero-footnote">
       <div class="hero-stat"><span class="hero-stat-value">2nd</span><span class="hero-stat-label">Year BMath</span></div>
@@ -349,7 +349,7 @@
           <div class="aside-card-content">
             <a href="https://github.com/MJScorch" target="_blank">github.com/MJScorch</a><br>
             <a href="https://linkedin.com/in/matthew-scorziello/" target="_blank">linkedin.com/in/matthew-scorziello</a><br>
-            <a href="/cdn-cgi/l/email-protection#295a4a465b53404c4545460744485d5d414c5e694e44484045074a4644"><span class="__cf_email__" data-cfemail="ee9d8d819c94878b828281c0838f9a9a868b99ae89838f8782c08d8183">[email&#160;protected]</span></a>
+            <a href="mailto:scorziello.matthew@gmail.com">scorziello.matthew@gmail.com</a>
           </div>
         </div>
         <div class="aside-card">
@@ -835,7 +835,6 @@
         <div class="live-card-value" id="osrs-xp"><span class="live-placeholder">—</span></div>
         <div class="live-card-label">Total XP · Moist Mage69</div>
         <div class="live-card-sub" id="osrs-sub">loading…</div>
-        <img class="live-card-logo" src="https://oldschool.runescape.com/img/rsp777/logo.png" alt="OSRS" aria-hidden="true" style="width:28px;height:28px;">
       </a>
 
       <!-- Placeholder slot -->
@@ -864,9 +863,9 @@
       <div class="contact-body reveal">
         <p>Looking for ML-adjacent roles — internships, research, or full-time. Open to all industries and all locations.</p>
         <div class="contact-links">
-          <a href="/cdn-cgi/l/email-protection#8ffcece0fdf5e6eae3e3e0a1e2eefbfbe7eaf8cfe8e2eee6e3a1ece0e2" class="contact-link">
+          <a href="mailto:scorziello.matthew@gmail.com" class="contact-link">
             <span class="contact-link-icon">Email</span>
-            <span class="contact-link-val"><span class="__cf_email__" data-cfemail="fc8f9f938e869599909093d2919d888894998bbc9b919d9590d29f9391">[email&#160;protected]</span></span>
+            <span class="contact-link-val">scorziello.matthew@gmail.com</span>
           </a>
           <a href="https://github.com/MJScorch" class="contact-link" target="_blank">
             <span class="contact-link-icon">GitHub</span>
@@ -1150,7 +1149,9 @@
           document.getElementById('gr-sub').textContent  = 'goodreads.com/' + userId;
           setDot('gr-dot','online'); return;
         }
-        const title  = item.querySelector('title')?.textContent?.trim() || '—';
+        let title  = item.querySelector('title')?.textContent?.trim() || '—';
+        // Strip series annotation e.g. "(Ripley #1)" or "(Series Name, #2)"
+        title = title.replace(/\s*\([^)]*#\d+[^)]*\)\s*$/i, '').trim();
         // author may be in author_name element or an inline tag
         let author = '';
         for (const el of item.children) {
@@ -1160,8 +1161,9 @@
           const m = text.match(/<author_name>([^<]+)<\/author_name>/);
           if (m) author = m[1];
         }
-        document.getElementById('gr-book').textContent = title.length > 30 ? title.slice(0,29)+'…' : title;
-        document.getElementById('gr-sub').textContent  = author || 'goodreads.com/' + userId;
+        const bookEl = document.getElementById('gr-book');
+        bookEl.textContent = title.length > 32 ? title.slice(0,31)+'…' : title;
+        document.getElementById('gr-sub').textContent = author ? `by ${author}` : 'goodreads.com/' + userId;
         setDot('gr-dot','online'); return;
       } catch { continue; }
     }
