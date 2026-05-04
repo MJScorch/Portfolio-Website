@@ -317,7 +317,7 @@
     <p class="hero-tagline">A web portfolio about me.</p>
     <div class="hero-cta">
       <a href="#experience" class="btn-primary">View Work</a>
-      <a href="#" class="btn-secondary email-link">Get in Touch</a>
+      <a href="#contact" class="btn-secondary email-link">Get in Touch</a>
     </div>
     <div class="hero-footnote">
       <div class="hero-stat"><span class="hero-stat-value">2nd</span><span class="hero-stat-label">Year BMath</span></div>
@@ -350,7 +350,7 @@
           <div class="aside-card-content">
             <a href="https://github.com/MJScorch" target="_blank">github.com/MJScorch</a><br>
             <a href="https://linkedin.com/in/matthew-scorziello/" target="_blank">linkedin.com/in/matthew-scorziello</a><br>
-            <a href="#" class="email-link show-email">scorziello.matthew@gmail.com</a>
+            <a href="#contact" class="email-link show-email">scorziello.matthew@gmail.com</a>
           </div>
         </div>
         <div class="aside-card">
@@ -374,7 +374,7 @@
       <div class="exp-item reveal">
         <div class="exp-meta">
           <span class="exp-period">Jan – Apr 2026</span>
-          <span class="exp-company">United Grocers Inc.</span>
+          <span class="exp-company">UGI</span>
           <span class="exp-loc">Co-op</span>
         </div>
         <div class="exp-body">
@@ -800,10 +800,10 @@
         <div class="live-card-value" id="lb-film" style="font-size:16px;font-family:var(--serif);font-style:italic;align-items:flex-start;line-height:1.25;"><span class="live-placeholder">—</span></div>
         <div class="live-card-label">Last watched</div>
         <div class="live-card-sub" id="lb-sub">loading…</div>
-        <svg class="live-card-logo" viewBox="0 0 75 25" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:46px;height:16px;bottom:14px;">
+        <svg class="live-card-logo" viewBox="0 0 50 25" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:48px;height:24px;bottom:13px;">
           <circle cx="12.5" cy="12.5" r="12.5" fill="#FF8000"/>
-          <circle cx="37.5" cy="12.5" r="12.5" fill="#00E054"/>
-          <circle cx="62.5" cy="12.5" r="12.5" fill="#40BCF4"/>
+          <circle cx="25" cy="12.5" r="12.5" fill="#00E054" opacity="0.75"/>
+          <circle cx="37.5" cy="12.5" r="12.5" fill="#40BCF4" opacity="0.75"/>
         </svg>
       </a>
 
@@ -831,15 +831,16 @@
         <img class="live-card-logo" src="https://cdn.simpleicons.org/chessdotcom/6aaa64" alt="Chess.com" aria-hidden="true">
       </a>
 
-      <!-- OSRS / Wise Old Man -->
-      <a class="live-card reveal" href="https://wiseoldman.net/players/Moist%20Mage69" target="_blank" rel="noopener">
+      <!-- Strava -->
+      <a class="live-card reveal" href="https://www.strava.com/athletes/1987444493" target="_blank" rel="noopener">
         <div class="live-card-header">
-          <span class="live-card-source">OSRS</span>
-          <span class="live-dot loading" id="osrs-dot"></span>
+          <span class="live-card-source">Strava</span>
+          <span class="live-dot loading" id="strava-dot"></span>
         </div>
-        <div class="live-card-value" id="osrs-xp"><span class="live-placeholder">—</span></div>
-        <div class="live-card-label">Total XP</div>
-        <div class="live-card-sub" id="osrs-sub">loading…</div>
+        <div class="live-card-value" id="strava-run" style="font-size:16px;font-family:var(--mono);"><span class="live-placeholder">—</span></div>
+        <div class="live-card-label">Last run</div>
+        <div class="live-card-sub" id="strava-sub">loading…</div>
+        <img class="live-card-logo" src="https://cdn.simpleicons.org/strava/FC4C02" alt="Strava" aria-hidden="true">
       </a>
 
       <!-- Placeholder slot -->
@@ -868,7 +869,7 @@
       <div class="contact-body reveal">
         <p>Looking for ML-adjacent roles — internships, research, or full-time. Open to all industries and all locations.</p>
         <div class="contact-links">
-          <a href="#" class="contact-link email-link">
+          <a href="#contact" class="contact-link email-link">
             <span class="contact-link-icon">Email</span>
             <span class="contact-link-val">scorziello.matthew@gmail.com</span>
           </a>
@@ -987,9 +988,18 @@
 <script>
   // ── EMAIL LINKS (assembled in JS to survive CF obfuscation) ──
   (function() {
-    const e = 'scorziello.matthew' + '@' + 'gmail' + '.' + 'com';
+    const p = ['sc','orz','iel','lo','.','mat','the','w'];
+    const d = ['gm','ail','.','co','m'];
+    const e = p.join('') + '@' + d.join('');
+    const m = 'mai' + 'lto' + ':';
     document.querySelectorAll('.email-link').forEach(a => {
-      a.href = 'mailto:' + e;
+      a.addEventListener('click', function(ev) {
+        if (this.href.indexOf('#') > -1) {
+          ev.preventDefault();
+          window.location.href = m + e;
+        }
+      });
+      a.href = m + e;
     });
     document.querySelectorAll('.show-email').forEach(a => {
       a.textContent = e;
@@ -1228,7 +1238,7 @@
     }
   }
 
-  loadChess(); loadLetterboxd(); loadGitHub(); loadGoodreads(); loadOSRS();
+  loadChess(); loadLetterboxd(); loadGitHub(); loadGoodreads(); loadStrava();
 
   // ── LINEAR TRANSFORMATION VISUALIZER ──
   const canvas = document.getElementById('lin-canvas');
