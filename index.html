@@ -800,10 +800,10 @@
         <div class="live-card-value" id="lb-film" style="font-size:16px;font-family:var(--serif);font-style:italic;align-items:flex-start;line-height:1.25;"><span class="live-placeholder">—</span></div>
         <div class="live-card-label">Last watched</div>
         <div class="live-card-sub" id="lb-sub">loading…</div>
-        <svg class="live-card-logo" viewBox="0 0 50 25" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:48px;height:24px;bottom:13px;">
+        <svg class="live-card-logo" viewBox="0 0 56 25" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:50px;height:22px;bottom:13px;">
           <circle cx="12.5" cy="12.5" r="12.5" fill="#FF8000"/>
-          <circle cx="25" cy="12.5" r="12.5" fill="#00E054" opacity="0.75"/>
-          <circle cx="37.5" cy="12.5" r="12.5" fill="#40BCF4" opacity="0.75"/>
+          <circle cx="28" cy="12.5" r="12.5" fill="#00E054" opacity="0.75"/>
+          <circle cx="43.5" cy="12.5" r="12.5" fill="#40BCF4" opacity="0.75"/>
         </svg>
       </a>
 
@@ -988,18 +988,16 @@
 <script>
   // ── EMAIL LINKS (assembled in JS to survive CF obfuscation) ──
   (function() {
-    const p = ['sc','orz','iel','lo','.','mat','the','w'];
-    const d = ['gm','ail','.','co','m'];
-    const e = p.join('') + '@' + d.join('');
-    const m = 'mai' + 'lto' + ':';
+    const u = atob('c2NvcnppZWxsby5tYXR0aGV3'); // scorziello.matthew
+    const d = atob('Z21haWwuY29t'); // gmail.com
+    const e = u + '@' + d;
+    const m = ['m','a','i','l','t','o',':'].join('');
     document.querySelectorAll('.email-link').forEach(a => {
-      a.addEventListener('click', function(ev) {
-        if (this.href.indexOf('#') > -1) {
-          ev.preventDefault();
-          window.location.href = m + e;
-        }
-      });
-      a.href = m + e;
+      a.onclick = function(ev) {
+        ev.preventDefault();
+        window.location.href = m + e;
+        return false;
+      };
     });
     document.querySelectorAll('.show-email').forEach(a => {
       a.textContent = e;
@@ -1201,41 +1199,86 @@
   }
 
   // ── OSRS / Wise Old Man ──
-  async function loadOSRS() {
-    const player = 'Moist%20Mage69';
-    try {
-      const [playerRes, gainedRes] = await Promise.all([
-        fetch(`https://api.wiseoldman.net/v2/players/${player}`,             { signal: AbortSignal.timeout(8000) }),
-        fetch(`https://api.wiseoldman.net/v2/players/${player}/gained?period=week`, { signal: AbortSignal.timeout(8000) })
-      ]);
-      if (!playerRes.ok) throw new Error();
-      const data    = await playerRes.json();
-      const overall = data?.latestSnapshot?.data?.skills?.overall;
-      if (!overall) throw new Error();
-      const xp  = overall.experience;
-      const lvl = overall.level;
-      const fmtXp = xp >= 1e9 ? (xp/1e9).toFixed(2) + 'B'
-                  : xp >= 1e6 ? (xp/1e6).toFixed(1)  + 'M'
-                  : xp.toLocaleString();
-      document.getElementById('osrs-xp').textContent = fmtXp + ' xp';
-      let sub = `Lvl ${lvl} total`;
-      if (gainedRes.ok) {
-        const gd      = await gainedRes.json();
-        const weekXp  = gd?.data?.skills?.overall?.experience?.gained;
-        if (weekXp && weekXp > 0) {
-          const fmtW = weekXp >= 1e6 ? (weekXp/1e6).toFixed(2)+'M'
-                     : weekXp >= 1e3 ? Math.round(weekXp/1e3)+'K'
-                     : weekXp.toLocaleString();
-          sub += ` · +${fmtW} xp this week`;
+  async function loadStrava() {
+    const athleteId = '1987444493';
+    // Strava public profile with CORS proxy
+    const publicUrl = `https://www.strava.com/athletes/${athleteId}`;
+    const proxies = [
+      `https://api.allorigins.win/raw?url=${encodeURIComponent(publicUrl)}`,
+      `https://corsproxy.io/?${encodeURIComponent(publicUrl)}`
+    ];
+    
+    for (const proxy of proxies) {
+      try {
+        const res = await fetch(proxy, { signal: AbortSignal.timeout(10000) });
+        if (!res.ok) continue;
+        const text = await res.text();
+        
+        // Parse activity from HTML
+        const actMatch = text.match(/<a[^>]+href="[^"]*\/activities\/\d+"[^>]*>([^<]+)<\/a>/i);
+        const distMatch = text.match(/([\d.]+)\s*(mi|km)/i);
+        
+        if (actMatch) {
+          let act = actMatch[1].trim().replace(/\s+/g, ' ').substring(0, 28);
+          if (act.length >= 28) act += '…';
+          document.getElementById('strava-run').textContent = act;
+          
+          let sub = distMatch ? `${parseFloat(distMatch[1]).toFixed(1)} ${distMatch[2]}` : 'Recent activity';
+          document.getElementById('strava-sub').textContent = sub;
+          setDot('strava-dot','online');
+          return;
         }
-      }
-      document.getElementById('osrs-sub').textContent = sub;
-      setDot('osrs-dot','online');
-    } catch {
-      document.getElementById('osrs-xp').innerHTML  = '<span class="live-placeholder">—</span>';
-      document.getElementById('osrs-sub').textContent = 'wiseoldman.net';
-      setDot('osrs-dot','error');
+      } catch { continue; }
     }
+    
+    document.getElementById('strava-run').textContent = 'See profile';
+    document.getElementById('strava-sub').textContent = 'strava.com/athletes/' + athleteId;
+    setDot('strava-dot','online');
+  }
+
+
+  // ── GOODREADS (currently-reading shelf via RSS proxy) ──
+  async function loadGoodreads() {
+    const userId = '199132780';
+    const rss = `https://www.goodreads.com/review/list_rss/199132780?shelf=currently-reading`;
+    const proxies = [
+      `https://api.allorigins.win/raw?url=${encodeURIComponent(rss)}`,
+      `https://corsproxy.io/?${encodeURIComponent(rss)}`
+    ];
+    for (const proxy of proxies) {
+      try {
+        const res = await fetch(proxy, { signal: AbortSignal.timeout(9000) });
+        if (!res.ok) continue;
+        const text = await res.text();
+        const xml = new DOMParser().parseFromString(text, 'text/xml');
+        if (xml.querySelector('parsererror')) continue;
+        const item = xml.querySelector('item');
+        if (!item) {
+          document.getElementById('gr-book').textContent = 'Nothing on the shelf';
+          document.getElementById('gr-sub').textContent  = 'goodreads.com/' + userId;
+          setDot('gr-dot','online'); return;
+        }
+        let title  = item.querySelector('title')?.textContent?.trim() || '—';
+        // Strip series annotation e.g. "(Ripley #1)" or "(Series Name, #2)"
+        title = title.replace(/\s*\([^)]*#\d+[^)]*\)\s*$/i, '').trim();
+        // author may be in author_name element or an inline tag
+        let author = '';
+        for (const el of item.children) {
+          if (el.localName === 'author_name') { author = el.textContent.trim(); break; }
+        }
+        if (!author) {
+          const m = text.match(/<author_name>([^<]+)<\/author_name>/);
+          if (m) author = m[1];
+        }
+        const bookEl = document.getElementById('gr-book');
+        bookEl.textContent = title.length > 32 ? title.slice(0,31)+'…' : title;
+        document.getElementById('gr-sub').textContent = author ? `by ${author}` : 'goodreads.com/' + userId;
+        setDot('gr-dot','online'); return;
+      } catch { continue; }
+    }
+    document.getElementById('gr-book').innerHTML = '<span class="live-placeholder">—</span>';
+    document.getElementById('gr-sub').textContent = 'goodreads.com/' + userId;
+    setDot('gr-dot','error');
   }
 
   loadChess(); loadLetterboxd(); loadGitHub(); loadGoodreads(); loadStrava();
