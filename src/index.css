@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+/* Monochrome only: pure black ground, white type. The "dim" and "muted"
+   tokens are the same white at lower opacity rather than separate hues, so
+   nothing on the page introduces a colour accent. */
+@theme {
+  --color-bg: #000000;
+  --color-text: #ffffff;
+  --color-text-dim: rgba(255, 255, 255, 0.62);
+  --color-text-muted: rgba(255, 255, 255, 0.38);
+  --color-line: rgba(255, 255, 255, 0.14);
+
+  --font-serif: "EB Garamond", Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-fade-up {
+  opacity: 0;
+  animation: fade-up 0.9s ease forwards;
+}
+
+/* Scroll-reveal: toggled to .visible by useScrollReveal (IntersectionObserver) */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
