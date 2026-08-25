@@ -2,9 +2,14 @@ import { useEffect, useRef } from "react"
 import { usePageVisibility } from "./usePageVisibility"
 
 /**
- * Plays `src` on loop starting from the visitor's first interaction (browser
- * autoplay rules require a gesture), then pauses/resumes with tab visibility
- * so nothing plays uselessly in the background.
+ * Plays `src` on loop, then pauses/resumes with tab visibility so nothing
+ * plays uselessly in the background.
+ *
+ * Playback is attempted immediately on load. Browsers block unmuted autoplay
+ * until a site has earned enough engagement, so that attempt is expected to
+ * be rejected for most first-time visitors — when it is, we fall back to
+ * starting on the first interaction. Returning visitors, and anyone who has
+ * allowed audio for the site, get it straight away.
  */
 export function useBackgroundAudio(src: string) {
   const audioRef = useRef<HTMLAudioElement | null>(null)
@@ -24,6 +29,9 @@ export function useBackgroundAudio(src: string) {
         startedRef.current = false
       })
     }
+
+    // Try straight away; falls through to the listeners below if blocked.
+    start()
 
     window.addEventListener("pointerdown", start)
     window.addEventListener("keydown", start)

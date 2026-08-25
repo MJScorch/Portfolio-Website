@@ -1,5 +1,3 @@
-import { GITHUB_URL } from "../../data/links"
-import { GitHubIcon } from "../shared/icons"
 import { ProfileLinks } from "../shared/ProfileLinks"
 import { CarScene } from "./CarScene"
 
@@ -16,20 +14,9 @@ export function Hero() {
           <p className="animate-fade-up mb-4 text-[13px] tracking-[0.2em] text-text-dim uppercase [animation-delay:0.1s]">
             Bachelor of Mathematics · University of Waterloo
           </p>
-          <div className="animate-fade-up flex flex-wrap items-center gap-x-6 gap-y-2 [animation-delay:0.25s]">
-            <h1 className="text-[clamp(48px,9vw,104px)] leading-none font-medium tracking-[-0.02em] text-text">
-              Matthew <em className="font-bold italic">Scorziello</em>
-            </h1>
-            <a
-              href={GITHUB_URL}
-              target="_blank"
-              rel="noopener"
-              aria-label="GitHub"
-              className="pointer-events-auto text-text-dim transition-colors hover:text-text"
-            >
-              <GitHubIcon className="h-7 w-7" />
-            </a>
-          </div>
+          <h1 className="animate-fade-up text-[clamp(48px,9vw,104px)] leading-none font-medium tracking-[-0.02em] text-text [animation-delay:0.25s]">
+            Matthew <em className="font-bold italic">Scorziello</em>
+          </h1>
           <ProfileLinks className="animate-fade-up pointer-events-auto mt-6 [animation-delay:0.4s]" />
         </div>
       </div>
