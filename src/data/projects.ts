@@ -1,30 +1,29 @@
 import type { ProjectEntry } from "../types"
 
+/**
+ * Order is deliberate — most substantial first.
+ * `stack` and `summary` are placeholders to be filled in as each project firms up.
+ */
 export const projects: ProjectEntry[] = [
   {
-    number: "Project 01",
-    status: "In Progress",
     name: "Letterboxd Recommendation Engine",
-    description:
-      "Personal movie recommender trained on Letterboxd export data. Combines NLP text embeddings of film descriptions with SVD over the user–film rating matrix. The goal is recommendations that feel personal, not just popular.",
-    tags: ["NLP", "Embeddings", "SVD", "Matrix Factorization", "Claude-Assisted"],
+    stack: "Python / scikit-learn / NLP embeddings",
+    summary:
+      "Work in progress — movie recommendation engine built on Letterboxd exports plus AI analysis of written critiques.",
     githubUrl: "https://github.com/MJScorch/Letterboxd-Recommendation-Engine",
   },
   {
-    number: "Project 02",
-    status: "Live",
-    name: "Habit Tracker (iOS Scriptable)",
-    description:
-      "A habit tracking app built in JavaScript, running as a home screen widget on iOS via Scriptable. Just download Scriptable, copy habitTracker.js from my GitHub, and paste it in.",
-    tags: ["JavaScript", "iOS", "Scriptable", "Claude-Assisted"],
-    githubUrl: "https://github.com/MJScorch/ios_habit_tracker",
+    name: "Marlin — Fish ID",
+    stack: "React Native / Expo / PyTorch",
+    summary:
+      "Work in progress — fish identification for Ontario anglers, using a fine-tuned image classifier to name a catch from a photo.",
+    githubUrl: "https://github.com/MJScorch/Marlin-Fish-ID",
+    pageUrl: "/marlin",
   },
   {
-    number: "Project 03",
-    status: "Planned",
-    name: "Ontario Fish Identifier",
-    description:
-      "Based on the Merlin Bird ID app by Cornell Lab. Snap a picture on the water and get an answer in seconds.",
-    tags: ["PyTorch", "CNNs", "Transfer Learning", "ResNet", "Image Classification", "Deep Learning"],
+    name: "Habit Tracker",
+    stack: "JavaScript / Scriptable / iOS",
+    summary: "Work in progress — a habit tracker that lives on the iOS home screen as a widget.",
+    githubUrl: "https://github.com/MJScorch/ios_habit_tracker",
   },
 ]
