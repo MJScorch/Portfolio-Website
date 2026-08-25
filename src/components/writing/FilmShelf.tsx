@@ -49,7 +49,15 @@ export function FilmShelf() {
                 )}
               </div>
               <p className="truncate text-[13px] text-text-dim transition-colors group-hover:text-text">{film.title}</p>
-              {film.rating !== undefined && <Stars rating={film.rating} />}
+              {/* Stars sit against the left edge of the poster, the heart against the right. */}
+              <div className="flex min-h-[14px] items-center justify-between gap-2">
+                {film.rating !== undefined ? <Stars rating={film.rating} /> : <span />}
+                {film.liked && (
+                  <span aria-label="Liked" className="text-[12px] leading-none text-text-dim">
+                    ♥
+                  </span>
+                )}
+              </div>
             </a>
           </li>
         ))}

@@ -13,6 +13,8 @@ export interface RecentFilm {
   title: string
   year?: string
   rating?: number
+  /** Whether the review carries a Letterboxd heart. */
+  liked?: boolean
   posterUrl?: string
   url: string
 }

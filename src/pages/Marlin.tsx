@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { GitHubIcon } from "../components/shared/icons"
+import { useEmail } from "../hooks/useEmail"
 
 const REPO_URL = "https://github.com/MJScorch/Marlin-Fish-ID"
 const FORM_NAME = "marlin-waitlist"
@@ -7,6 +8,7 @@ const FORM_NAME = "marlin-waitlist"
 export function Marlin() {
   const [email, setEmail] = useState("")
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle")
+  const { email: email_, mailto } = useEmail()
 
   async function submit(event: React.FormEvent) {
     event.preventDefault()
@@ -66,7 +68,15 @@ export function Marlin() {
         </div>
         <p aria-live="polite" className="min-h-[1.5em] text-[13px] text-text-muted">
           {state === "done" && "Thanks — I'll let you know when it's ready."}
-          {state === "error" && "Something went wrong. Try again, or email me directly."}
+          {state === "error" && (
+            <>
+              Couldn&rsquo;t save that. Email me at{" "}
+              <a href={mailto} className="underline transition-colors hover:text-text">
+                {email_}
+              </a>{" "}
+              and I&rsquo;ll add you manually.
+            </>
+          )}
         </p>
       </form>
 

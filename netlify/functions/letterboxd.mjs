@@ -29,6 +29,8 @@ export default async () => {
         title,
         year: pick(block, "letterboxd:filmYear"),
         rating: rating ? Number(rating) : undefined,
+        // Letterboxd's "like" is the heart on a review.
+        liked: pick(block, "letterboxd:memberLike") === "Yes",
         posterUrl: poster,
         url: pick(block, "link"),
       })

@@ -11,6 +11,19 @@ function netlifyFunctionsDev(): Plugin {
     name: 'netlify-functions-dev',
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
+        // Netlify Forms only exists on deployed Netlify. Locally, accept the
+        // POST and log it so the waitlist UI can be exercised end to end.
+        if (req.method === 'POST' && req.headers['content-type']?.includes('urlencoded')) {
+          let body = ''
+          req.on('data', (chunk) => (body += chunk))
+          req.on('end', () => {
+            console.log('[dev] form submission:', body)
+            res.statusCode = 200
+            res.end('OK')
+          })
+          return
+        }
+
         if (!req.url?.startsWith('/api/letterboxd')) return next()
         try {
           const { default: handler } = await server.ssrLoadModule('/netlify/functions/letterboxd.mjs')

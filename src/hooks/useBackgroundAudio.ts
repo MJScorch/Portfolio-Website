@@ -2,43 +2,50 @@ import { useEffect, useRef } from "react"
 import { usePageVisibility } from "./usePageVisibility"
 
 /**
- * Plays `src` on loop, then pauses/resumes with tab visibility so nothing
- * plays uselessly in the background.
+ * Loops `src` in the background, pausing with tab visibility so nothing plays
+ * uselessly when the tab is hidden.
  *
- * Playback is attempted immediately on load. Browsers block unmuted autoplay
- * until a site has earned enough engagement, so that attempt is expected to
- * be rejected for most first-time visitors — when it is, we fall back to
- * starting on the first interaction. Returning visitors, and anyone who has
- * allowed audio for the site, get it straight away.
+ * Browsers refuse to start *audible* playback before the visitor has
+ * interacted with the page, and there is no way for a page to opt out of that.
+ * What they do allow is muted playback. So this starts muted immediately and
+ * unmutes on the first interaction: by the time the visitor clicks, scrolls
+ * onto the car, or drags it, the track is already decoded, buffered and
+ * running, so the sound comes in instantly rather than after a load pause.
  */
 export function useBackgroundAudio(src: string) {
   const audioRef = useRef<HTMLAudioElement | null>(null)
-  const startedRef = useRef(false)
+  const unmutedRef = useRef(false)
   const visible = usePageVisibility()
 
   useEffect(() => {
     const audio = new Audio(src)
     audio.loop = true
     audio.preload = "auto"
+    audio.muted = true
     audioRef.current = audio
 
-    const start = () => {
-      if (startedRef.current) return
-      startedRef.current = true
-      audio.play().catch(() => {
-        startedRef.current = false
+    // Muted autoplay is permitted, so this generally succeeds.
+    void audio.play().catch(() => {})
+
+    const reveal = () => {
+      if (unmutedRef.current) return
+      unmutedRef.current = true
+      audio.muted = false
+      // If the muted start was refused too, this gesture is our chance.
+      void audio.play().catch(() => {
+        unmutedRef.current = false
+        audio.muted = true
       })
     }
 
-    // Try straight away; falls through to the listeners below if blocked.
-    start()
-
-    window.addEventListener("pointerdown", start)
-    window.addEventListener("keydown", start)
+    // `pointerdown` covers click and touch; `keydown` covers keyboard users.
+    // Both count as user activation, which is what unlocks audible playback.
+    window.addEventListener("pointerdown", reveal)
+    window.addEventListener("keydown", reveal)
 
     return () => {
-      window.removeEventListener("pointerdown", start)
-      window.removeEventListener("keydown", start)
+      window.removeEventListener("pointerdown", reveal)
+      window.removeEventListener("keydown", reveal)
       audio.pause()
       audioRef.current = null
     }
@@ -46,8 +53,8 @@ export function useBackgroundAudio(src: string) {
 
   useEffect(() => {
     const audio = audioRef.current
-    if (!audio || !startedRef.current) return
-    if (visible) audio.play().catch(() => {})
+    if (!audio) return
+    if (visible) void audio.play().catch(() => {})
     else audio.pause()
   }, [visible])
 }
