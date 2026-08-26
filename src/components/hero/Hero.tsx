@@ -22,7 +22,7 @@ export function Hero({ audio }: { audio: BackgroundAudio }) {
           {/* Links left, sound control right — the control is desktop-only, so
               on a phone this collapses back to just the links. */}
           <div className="animate-fade-up mt-5 flex items-end justify-between gap-6 sm:mt-6 [animation-delay:0.4s]">
-            <ProfileLinks className="pointer-events-auto" />
+            <ProfileLinks className="pointer-events-auto min-w-0 flex-1" />
             <SoundToggle soundOn={audio.soundOn} onToggle={audio.toggle} />
           </div>
         </div>
