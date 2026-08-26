@@ -15,14 +15,6 @@
   </head>
   <body>
     <div id="root"></div>
-    <!--
-      Netlify detects forms by scanning the built HTML. The real form is
-      rendered by React, so it is invisible at build time — this static stub
-      is what registers the form and its fields.
-    -->
-    <form name="marlin-waitlist" data-netlify="true" hidden>
-      <input type="email" name="email" />
-    </form>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

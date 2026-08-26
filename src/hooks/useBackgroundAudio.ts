@@ -1,21 +1,46 @@
-import { useEffect, useRef } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { usePageVisibility } from "./usePageVisibility"
 
+/** Marks the sound control so the ambient gesture listener ignores it. */
+export const AUDIO_CONTROL_ATTR = "data-audio-control"
+
+export interface BackgroundAudio {
+  /** True when the track is actually audible. */
+  soundOn: boolean
+  toggle: () => void
+}
+
 /**
- * Loops `src` in the background, pausing with tab visibility so nothing plays
- * uselessly when the tab is hidden.
+ * Loops `src`, pausing with tab visibility so nothing plays into a hidden tab.
  *
- * Browsers refuse to start *audible* playback before the visitor has
- * interacted with the page, and there is no way for a page to opt out of that.
- * What they do allow is muted playback. So this starts muted immediately and
- * unmutes on the first interaction: by the time the visitor clicks, scrolls
- * onto the car, or drags it, the track is already decoded, buffered and
- * running, so the sound comes in instantly rather than after a load pause.
+ * Browsers refuse to start *audible* playback before a user gesture and a page
+ * cannot opt out. Muted playback is allowed, so the track starts muted and
+ * unmutes on the first interaction — by then it is decoded and running, so
+ * sound arrives instantly rather than after a load pause.
  */
-export function useBackgroundAudio(src: string) {
+export function useBackgroundAudio(src: string): BackgroundAudio {
   const audioRef = useRef<HTMLAudioElement | null>(null)
-  const unmutedRef = useRef(false)
+  /** Once the visitor uses the control, ambient gestures stop overriding them. */
+  const userChoseRef = useRef(false)
+  const [soundOn, setSoundOn] = useState(false)
   const visible = usePageVisibility()
+
+  const setMuted = useCallback((muted: boolean) => {
+    const audio = audioRef.current
+    if (!audio) return
+    audio.muted = muted
+    setSoundOn(!muted)
+    if (!muted) void audio.play().catch(() => setSoundOn(false))
+  }, [])
+
+  const toggle = useCallback(() => {
+    const audio = audioRef.current
+    if (!audio) return
+    userChoseRef.current = true
+    // Muted -> unmute, audible -> mute. Reads the element rather than state so
+    // it stays correct even if the ambient listener changed it a moment ago.
+    setMuted(!audio.muted)
+  }, [setMuted])
 
   useEffect(() => {
     const audio = new Audio(src)
@@ -23,23 +48,19 @@ export function useBackgroundAudio(src: string) {
     audio.preload = "auto"
     audio.muted = true
     audioRef.current = audio
-
-    // Muted autoplay is permitted, so this generally succeeds.
     void audio.play().catch(() => {})
 
-    const reveal = () => {
-      if (unmutedRef.current) return
-      unmutedRef.current = true
-      audio.muted = false
-      // If the muted start was refused too, this gesture is our chance.
-      void audio.play().catch(() => {
-        unmutedRef.current = false
-        audio.muted = true
-      })
+    const reveal = (event: Event) => {
+      // The control drives itself; letting this also fire would start the
+      // track on pointerdown and then immediately toggle it off on click.
+      const target = event.target as HTMLElement | null
+      if (target?.closest?.(`[${AUDIO_CONTROL_ATTR}]`)) return
+      if (userChoseRef.current) return
+      window.removeEventListener("pointerdown", reveal)
+      window.removeEventListener("keydown", reveal)
+      setMuted(false)
     }
 
-    // `pointerdown` covers click and touch; `keydown` covers keyboard users.
-    // Both count as user activation, which is what unlocks audible playback.
     window.addEventListener("pointerdown", reveal)
     window.addEventListener("keydown", reveal)
 
@@ -49,7 +70,7 @@ export function useBackgroundAudio(src: string) {
       audio.pause()
       audioRef.current = null
     }
-  }, [src])
+  }, [src, setMuted])
 
   useEffect(() => {
     const audio = audioRef.current
@@ -57,4 +78,6 @@ export function useBackgroundAudio(src: string) {
     if (visible) void audio.play().catch(() => {})
     else audio.pause()
   }, [visible])
+
+  return { soundOn, toggle }
 }

@@ -4,13 +4,14 @@ import { Footer } from "./components/layout/Footer"
 import { Nav } from "./components/layout/Nav"
 import { Projects } from "./components/projects/Projects"
 import { Writing } from "./components/writing/Writing"
+import type { BackgroundAudio } from "./hooks/useBackgroundAudio"
 
-function App() {
+function App({ audio }: { audio: BackgroundAudio }) {
   return (
     <>
       <Nav />
       <main>
-        <Hero />
+        <Hero audio={audio} />
         <Projects />
         <Writing />
         <Contact />

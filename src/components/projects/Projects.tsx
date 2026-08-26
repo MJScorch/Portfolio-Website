@@ -24,15 +24,14 @@ export function Projects() {
       <ul className="flex flex-col">
         {projects.map((project, i) => (
           <RevealOnScroll key={project.name} index={i}>
-            <li className="flex flex-col gap-1.5 border-b border-line py-6">
+            {/* The whole row responds: it warms, indents slightly and its rule
+                brightens, so hovering feels like the row itself is live. */}
+            <li className="group -mx-4 flex flex-col gap-1.5 rounded-sm border-b border-line px-4 py-6 transition-all duration-300 hover:translate-x-1 hover:border-white/30 hover:bg-white/[0.03]">
               <div className="flex flex-wrap items-baseline gap-x-5 gap-y-1">
                 {/* When a project has its own page, the title itself is the way in. */}
                 {project.pageUrl ? (
-                  <a href={project.pageUrl} className="group/title text-xl text-text">
+                  <a href={project.pageUrl} className="text-xl text-text">
                     {project.name}
-                    <span className="ml-2 inline-block text-text-muted transition-transform group-hover/title:translate-x-1">
-                      →
-                    </span>
                   </a>
                 ) : (
                   <h3 className="text-xl text-text">{project.name}</h3>
@@ -49,8 +48,12 @@ export function Projects() {
                   </a>
                 )}
               </div>
-              <p className="text-[13px] tracking-[0.06em] text-text-muted uppercase">{project.stack}</p>
-              <p className="text-[15px] text-text-dim">{project.summary}</p>
+              <p className="text-[13px] tracking-[0.06em] text-text-muted uppercase transition-colors duration-300 group-hover:text-text-dim">
+                {project.stack}
+              </p>
+              <p className="text-[15px] text-text-dim transition-colors duration-300 group-hover:text-text">
+                {project.summary}
+              </p>
             </li>
           </RevealOnScroll>
         ))}

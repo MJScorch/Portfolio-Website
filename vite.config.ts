@@ -2,38 +2,45 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { defineConfig, type Plugin } from 'vite'
 
+/** Maps a request path to the function that serves it in production. */
+const FUNCTIONS: Record<string, string> = {
+  '/api/letterboxd': '/netlify/functions/letterboxd.mjs',
+  '/api/waitlist': '/netlify/functions/waitlist.mjs',
+}
+
 /**
- * Runs the Netlify function locally so `npm run dev` behaves like production.
- * Without this, /api/letterboxd only exists once deployed.
+ * Runs the Netlify functions locally so `npm run dev` matches production.
+ * Without this these routes only exist once deployed, which makes the
+ * endpoints impossible to exercise while developing.
  */
 function netlifyFunctionsDev(): Plugin {
   return {
     name: 'netlify-functions-dev',
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
-        // Netlify Forms only exists on deployed Netlify. Locally, accept the
-        // POST and log it so the waitlist UI can be exercised end to end.
-        if (req.method === 'POST' && req.headers['content-type']?.includes('urlencoded')) {
-          let body = ''
-          req.on('data', (chunk) => (body += chunk))
-          req.on('end', () => {
-            console.log('[dev] form submission:', body)
-            res.statusCode = 200
-            res.end('OK')
-          })
-          return
-        }
+        const path = req.url?.split('?')[0] ?? ''
+        const modulePath = FUNCTIONS[path]
+        if (!modulePath) return next()
 
-        if (!req.url?.startsWith('/api/letterboxd')) return next()
+        const chunks: Buffer[] = []
+        for await (const chunk of req) chunks.push(chunk as Buffer)
+        const body = Buffer.concat(chunks)
+
         try {
-          const { default: handler } = await server.ssrLoadModule('/netlify/functions/letterboxd.mjs')
-          const result = await handler(new Request('http://localhost' + req.url))
+          const { default: handler } = await server.ssrLoadModule(modulePath)
+          const request = new Request('http://localhost' + req.url, {
+            method: req.method,
+            headers: req.headers as Record<string, string>,
+            body: body.length ? body : undefined,
+          })
+          const result = await handler(request)
           res.statusCode = result.status
           result.headers.forEach((value: string, key: string) => res.setHeader(key, value))
           res.end(await result.text())
         } catch (error) {
           res.statusCode = 500
-          res.end(JSON.stringify({ films: [], error: String(error) }))
+          res.setHeader('content-type', 'application/json')
+          res.end(JSON.stringify({ error: String(error) }))
         }
       })
     },

@@ -1,7 +1,9 @@
+import type { BackgroundAudio } from "../../hooks/useBackgroundAudio"
+import { SoundToggle } from "../audio/SoundToggle"
 import { ProfileLinks } from "../shared/ProfileLinks"
 import { CarScene } from "./CarScene"
 
-export function Hero() {
+export function Hero({ audio }: { audio: BackgroundAudio }) {
   return (
     <section id="hero" className="relative h-screen w-full overflow-hidden">
       <CarScene />
@@ -17,7 +19,12 @@ export function Hero() {
           <h1 className="animate-fade-up text-[clamp(48px,9vw,104px)] leading-none font-medium tracking-[-0.02em] text-text [animation-delay:0.25s]">
             Matthew <em className="font-bold italic">Scorziello</em>
           </h1>
-          <ProfileLinks className="animate-fade-up pointer-events-auto mt-5 sm:mt-6 [animation-delay:0.4s]" />
+          {/* Links left, sound control right — the control is desktop-only, so
+              on a phone this collapses back to just the links. */}
+          <div className="animate-fade-up mt-5 flex items-end justify-between gap-6 sm:mt-6 [animation-delay:0.4s]">
+            <ProfileLinks className="pointer-events-auto" />
+            <SoundToggle soundOn={audio.soundOn} onToggle={audio.toggle} />
+          </div>
         </div>
       </div>
     </section>

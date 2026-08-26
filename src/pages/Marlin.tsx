@@ -3,28 +3,35 @@ import { GitHubIcon } from "../components/shared/icons"
 import { useEmail } from "../hooks/useEmail"
 
 const REPO_URL = "https://github.com/MJScorch/Marlin-Fish-ID"
-const FORM_NAME = "marlin-waitlist"
+
+type SubmitState = "idle" | "sending" | "done" | "invalid" | "limited" | "error"
 
 export function Marlin() {
   const [email, setEmail] = useState("")
-  const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle")
+  // Honeypot. Hidden from people, so anything in it means a bot.
+  const [company, setCompany] = useState("")
+  const [state, setState] = useState<SubmitState>("idle")
   const { email: email_, mailto } = useEmail()
 
   async function submit(event: React.FormEvent) {
     event.preventDefault()
+    if (state === "sending") return
     setState("sending")
     try {
-      // Netlify Forms accepts a urlencoded POST to any path on the site.
-      const res = await fetch("/", {
+      const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({ "form-name": FORM_NAME, email }).toString(),
+        body: new URLSearchParams({ email, company }).toString(),
       })
-      setState(res.ok ? "done" : "error")
+      if (res.ok) return setState("done")
+      const { error } = await res.json().catch(() => ({ error: "error" }))
+      setState(error === "rate_limited" ? "limited" : error === "invalid_email" ? "invalid" : "error")
     } catch {
       setState("error")
     }
   }
+
+  const finished = state === "done"
 
   return (
     <main className="mx-auto flex min-h-screen max-w-[640px] flex-col justify-center px-6 py-24 sm:px-8">
@@ -41,8 +48,18 @@ export function Marlin() {
         along with the regulations that apply to it.
       </p>
 
-      <form onSubmit={submit} name={FORM_NAME} data-netlify="true" className="mb-8 flex flex-col gap-3">
-        <input type="hidden" name="form-name" value={FORM_NAME} />
+      <form onSubmit={submit} className="mb-8 flex flex-col gap-3">
+        {/* Honeypot — hidden from people and from screen readers. */}
+        <input
+          type="text"
+          name="company"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+          className="absolute h-0 w-0 opacity-0"
+        />
         <div className="flex flex-col gap-3 sm:flex-row">
           <label htmlFor="email" className="sr-only">
             Email address
@@ -52,22 +69,25 @@ export function Marlin() {
             name="email"
             type="email"
             required
+            maxLength={254}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
-            disabled={state === "sending" || state === "done"}
+            disabled={state === "sending" || finished}
             className="w-full border border-line bg-transparent px-4 py-3 text-text placeholder:text-text-muted focus:border-text focus:outline-none disabled:opacity-50"
           />
           <button
             type="submit"
-            disabled={state === "sending" || state === "done"}
+            disabled={state === "sending" || finished}
             className="shrink-0 border border-text px-6 py-3 text-text transition-colors hover:bg-text hover:text-bg disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-text"
           >
-            {state === "done" ? "You're on the list" : state === "sending" ? "Joining…" : "Join waitlist"}
+            {finished ? "You're on the list" : state === "sending" ? "Joining…" : "Join waitlist"}
           </button>
         </div>
         <p aria-live="polite" className="min-h-[1.5em] text-[13px] text-text-muted">
-          {state === "done" && "Thanks — I'll let you know when it's ready."}
+          {finished && "Thanks — I'll let you know when it's ready."}
+          {state === "invalid" && "That doesn't look like an email address."}
+          {state === "limited" && "That's a few too many tries — give it a few minutes."}
           {state === "error" && (
             <>
               Couldn&rsquo;t save that. Email me at{" "}
