@@ -4,7 +4,7 @@
 // Defensive throughout: this is a public, unauthenticated endpoint, so it
 // assumes every request is hostile until proven otherwise.
 
-import { getStore } from "@netlify/blobs"
+import { store } from "../lib/store.mjs"
 
 /** Reject bodies larger than this outright — a signup is a few hundred bytes. */
 const MAX_BODY_BYTES = 2_000
@@ -20,27 +20,14 @@ const RATE_WINDOW_MS = 10 * 60 * 1000
 // is exactly the kind of input that should never reach storage.
 const EMAIL_PATTERN = /^[A-Za-z0-9._%+-]{1,64}@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?(?:\.[A-Za-z0-9-]+)+$/
 
+/** Allowlist rather than accepting whatever slug is posted. */
+const PROJECTS = new Set(["marlin", "applausi"])
+
 const json = (status, body) =>
   new Response(JSON.stringify(body), {
     status,
     headers: { "content-type": "application/json", "cache-control": "no-store" },
   })
-
-/**
- * In-memory fallback so the endpoint is exercisable with `npm run dev`, where
- * there is no Blobs backend. Never used on deployed Netlify.
- */
-const memory = new Map()
-function store(name) {
-  try {
-    return getStore(name)
-  } catch {
-    return {
-      get: async (key) => memory.get(`${name}:${key}`) ?? null,
-      setJSON: async (key, value) => void memory.set(`${name}:${key}`, value),
-    }
-  }
-}
 
 export default async (request) => {
   if (request.method !== "POST") return json(405, { error: "method_not_allowed" })
@@ -69,6 +56,9 @@ export default async (request) => {
   // Guards against emoji, control characters and other non-ASCII payloads.
   if (!EMAIL_PATTERN.test(email)) return json(400, { error: "invalid_email" })
 
+  const project = (fields.get("project") ?? "").trim().toLowerCase()
+  if (!PROJECTS.has(project)) return json(400, { error: "unknown_project" })
+
   const ip =
     request.headers.get("x-nf-client-connection-ip") ??
     request.headers.get("x-forwarded-for")?.split(",")[0].trim() ??
@@ -93,11 +83,11 @@ export default async (request) => {
     }
 
     const signups = store("waitlist")
-    // Key by email so a repeat signup overwrites rather than duplicating.
-    const key = `marlin:${email}`
+    // Keyed by project + email, so signing up twice updates rather than duplicates.
+    const key = `${project}:${email}`
     const existing = await signups.get(key, { type: "json" }).catch(() => null)
     if (!existing) {
-      await signups.setJSON(key, { email, at: new Date().toISOString() })
+      await signups.setJSON(key, { email, project, at: new Date().toISOString() })
     }
 
     return json(200, { ok: true })

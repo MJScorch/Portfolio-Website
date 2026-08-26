@@ -1,17 +1,18 @@
 import { useState } from "react"
 import { GitHubIcon } from "../components/shared/icons"
 import { useEmail } from "../hooks/useEmail"
-
-const REPO_URL = "https://github.com/MJScorch/Marlin-Fish-ID"
+import type { ProjectEntry } from "../types"
 
 type SubmitState = "idle" | "sending" | "done" | "invalid" | "limited" | "error"
 
-export function Marlin() {
+/** One page shape for every project waitlist — driven entirely by project data. */
+export function WaitlistPage({ project }: { project: ProjectEntry }) {
+  const page = project.page!
   const [email, setEmail] = useState("")
   // Honeypot. Hidden from people, so anything in it means a bot.
   const [company, setCompany] = useState("")
   const [state, setState] = useState<SubmitState>("idle")
-  const { email: email_, mailto } = useEmail()
+  const { email: ownerEmail, mailto } = useEmail()
 
   async function submit(event: React.FormEvent) {
     event.preventDefault()
@@ -21,7 +22,7 @@ export function Marlin() {
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({ email, company }).toString(),
+        body: new URLSearchParams({ email, company, project: page.slug }).toString(),
       })
       if (res.ok) return setState("done")
       const { error } = await res.json().catch(() => ({ error: "error" }))
@@ -40,13 +41,10 @@ export function Marlin() {
       </a>
 
       <h1 className="mb-6 text-[clamp(40px,8vw,72px)] leading-[1.05] font-medium tracking-[-0.02em] text-text">
-        Marlin
+        {project.name}
       </h1>
-      <p className="mb-4 max-w-[42ch] text-xl text-text-dim">Know your catch.</p>
-      <p className="mb-10 max-w-[52ch] text-text-dim">
-        Fish identification for Ontario anglers — point your camera at a catch and get the species back in seconds,
-        along with the regulations that apply to it.
-      </p>
+      <p className="mb-4 max-w-[42ch] text-xl text-text-dim">{page.tagline}</p>
+      <p className="mb-10 max-w-[52ch] text-text-dim">{page.description}</p>
 
       <form onSubmit={submit} className="mb-8 flex flex-col gap-3">
         {/* Honeypot — hidden from people and from screen readers. */}
@@ -92,7 +90,7 @@ export function Marlin() {
             <>
               Couldn&rsquo;t save that. Email me at{" "}
               <a href={mailto} className="underline transition-colors hover:text-text">
-                {email_}
+                {ownerEmail}
               </a>{" "}
               and I&rsquo;ll add you manually.
             </>
@@ -100,15 +98,17 @@ export function Marlin() {
         </p>
       </form>
 
-      <a
-        href={REPO_URL}
-        target="_blank"
-        rel="noopener"
-        className="flex w-fit items-center gap-2 text-[15px] text-text-dim transition-colors hover:text-text"
-      >
-        <GitHubIcon className="h-4 w-4" />
-        Repository
-      </a>
+      {project.githubUrl && (
+        <a
+          href={project.githubUrl}
+          target="_blank"
+          rel="noopener"
+          className="flex w-fit items-center gap-2 text-[15px] text-text-dim transition-colors hover:text-text"
+        >
+          <GitHubIcon className="h-4 w-4" />
+          Repository
+        </a>
+      )}
     </main>
   )
 }

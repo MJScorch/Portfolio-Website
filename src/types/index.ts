@@ -1,3 +1,11 @@
+/** A project that has its own page with a waitlist. */
+export interface ProjectPage {
+  /** URL segment and the key signups are stored under. */
+  slug: string
+  tagline: string
+  description: string
+}
+
 export interface ProjectEntry {
   name: string
   /** Tech line, e.g. "React Native / Expo / Supabase". */
@@ -5,8 +13,7 @@ export interface ProjectEntry {
   /** One-line description of what the project is. */
   summary: string
   githubUrl?: string
-  /** Dedicated on-site page, when the project has one. */
-  pageUrl?: string
+  page?: ProjectPage
 }
 
 export interface RecentFilm {

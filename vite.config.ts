@@ -6,6 +6,7 @@ import { defineConfig, type Plugin } from 'vite'
 const FUNCTIONS: Record<string, string> = {
   '/api/letterboxd': '/netlify/functions/letterboxd.mjs',
   '/api/waitlist': '/netlify/functions/waitlist.mjs',
+  '/api/waitlist-export': '/netlify/functions/waitlist-export.mjs',
 }
 
 /**
